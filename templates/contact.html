@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+
+<div class="d-flex">
+
+    {% include "sidebar.html" %}
+
+    <div class="main w-100">
+
+        <!-- Topbar -->
+        <div class="topbar d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+                <h2 class="fw-bold mb-1">📩 Contact Us</h2>
+
+                <p class="text-muted mb-0">
+                    Have questions or feedback? We are here to help.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Contact Section -->
+        <div class="row g-4">
+
+
+            <!-- Contact Information -->
+            <div class="col-lg-5">
+
+                <div class="card border-0 shadow-lg rounded-4 p-4 h-100">
+
+                    <div style="font-size:55px;">
+                        🤖
+                    </div>
+
+                    <h3 class="fw-bold mt-3">
+                        Get in Touch
+                    </h3>
+
+                    <p class="text-muted">
+                        If you have any questions, suggestions or
+                        feedback about AI Blog Generator, feel free
+                        to contact us.
+                    </p>
+
+                    <hr>
+
+                    <div class="d-flex align-items-center mb-4">
+
+                        <span style="font-size:28px;">
+                            📧
+                        </span>
+
+                        <div class="ms-3">
+
+                            <h6 class="fw-bold mb-1">
+                                Email
+                            </h6>
+
+                            <p class="text-muted mb-0">
+                                support@aibloggenerator.com
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="d-flex align-items-center mb-4">
+
+                        <span style="font-size:28px;">
+                            💬
+                        </span>
+
+                        <div class="ms-3">
+
+                            <h6 class="fw-bold mb-1">
+                                Support
+                            </h6>
+
+                            <p class="text-muted mb-0">
+                                We are happy to help you.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="d-flex align-items-center">
+
+                        <span style="font-size:28px;">
+                            ⚡
+                        </span>
+
+                        <div class="ms-3">
+
+                            <h6 class="fw-bold mb-1">
+                                Quick Response
+                            </h6>
+
+                            <p class="text-muted mb-0">
+                                We will respond as soon as possible.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Contact Form -->
+            <div class="col-lg-7">
+
+                <div class="card border-0 shadow-lg rounded-4 p-4">
+
+                    <h4 class="fw-bold mb-4">
+                        Send us a Message
+                    </h4>
+
+
+                    {% if success %}
+                    <div class="alert alert-success rounded-4">
+                        ✅ {{ success }}
+                    </div>
+                    {% endif %}
+
+
+                    <form action="/contact" method="POST">
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+                                Your Name
+                            </label>
+
+                            <input type="text" name="name" class="form-control rounded-3" placeholder="Enter your name"
+                                required>
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+                                Email Address
+                            </label>
+
+                            <input type="email" name="email" class="form-control rounded-3"
+                                placeholder="Enter your email" required>
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+                                Subject
+                            </label>
+
+                            <input type="text" name="subject" class="form-control rounded-3" placeholder="Enter subject"
+                                required>
+
+                        </div>
+
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                Message
+                            </label>
+
+                            <textarea name="message" class="form-control rounded-3" rows="6"
+                                placeholder="Write your message..." required></textarea>
+
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 w-100">
+                            🚀 Send Message
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FAQ -->
+        <div class="card border-0 shadow-lg rounded-4 p-4 mt-4">
+
+            <h4 class="fw-bold mb-3">
+                ❓ Frequently Asked Questions
+            </h4>
+
+            <div class="mb-3">
+
+                <h6 class="fw-bold">
+                    How does AI Blog Generator work?
+                </h6>
+
+                <p class="text-muted mb-0">
+                    It uses AI technology to help users generate
+                    high-quality blog content quickly.
+                </p>
+
+            </div>
+
+
+            <div class="mb-3">
+
+                <h6 class="fw-bold">
+                    Can I edit generated blogs?
+                </h6>
+
+                <p class="text-muted mb-0">
+                    Yes. You can edit, save and manage your blogs
+                    from the dashboard.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h6 class="fw-bold">
+                    Can I save my blogs?
+                </h6>
+
+                <p class="text-muted mb-0">
+                    Yes. Your blogs can be stored and managed
+                    through the application.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Footer -->
+        <div class="text-center text-muted py-4 mt-4">
+
+            <small>
+                © 2026 AI Blog Generator | Designed with 💜
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

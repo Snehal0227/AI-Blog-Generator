@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid vh-100">
+
+    <div class="row h-100">
+
+        <!-- Left Side -->
+
+        <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center login-left">
+
+            <div class="text-center text-white">
+
+                <h1 class="display-4 fw-bold">
+                    AI Blog Generator
+                </h1>
+
+                <p class="mt-3 fs-5">
+                    Create Amazing Blogs with Artificial Intelligence
+                </p>
+
+                <img src="{{ url_for('static', filename='images/login.jfif') }}" class="img-fluid mt-4"
+                    style="max-width:450px;">
+
+            </div>
+
+        </div>
+
+        <!-- Right Side -->
+
+        <div class="col-lg-6 d-flex align-items-center justify-content-center">
+
+            <div class="login-card">
+
+                <h2 class="fw-bold mb-4 text-center">
+
+                    Welcome Back 👋
+
+                </h2>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+
+                <div class="alert alert-danger">
+
+                    {{ message }}
+
+                </div>
+
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <form action="/login" method="POST">
+
+                    <div class="mb-3">
+
+                        <label>Email</label>
+
+                        <input type="email" name="email" class="form-control" placeholder="Enter Email">
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label>Password</label>
+
+                        <input type="password" name="password" class="form-control" placeholder="Enter Password">
+
+                    </div>
+
+                    <button class="btn btn-primary w-100 rounded-pill">
+
+                        Login
+
+                    </button>
+
+                </form>
+
+                <div class="text-center mt-4">
+
+                    Don't have an account?
+
+                    <a href="/register">
+
+                        Register
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

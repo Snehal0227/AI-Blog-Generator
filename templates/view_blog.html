@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}View Blog{% endblock %}
+
+{% block content %}
+
+<div class="d-flex">
+
+    {% include "sidebar.html" %}
+
+    <div class="main">
+
+        <div class="card border-0 shadow-lg rounded-4 p-4">
+
+            {% if blog.image %}
+            <img src="{{ url_for('static', filename='uploads/' + blog.image) }}" class="img-fluid rounded mb-4"
+                style="height:350px; width:100%; object-fit:cover;">
+            {% endif %}
+
+            <h2 class="fw-bold">{{ blog.title }}</h2>
+
+            <span class="badge bg-primary mb-3">
+                {{ blog.category }}
+            </span>
+
+            <hr>
+
+            <p style="font-size:18px; line-height:35px;">
+                {{ blog.content }}
+            </p>
+
+            <hr>
+
+            <div class="d-flex justify-content-between">
+
+                <span class="badge bg-primary">
+                    {{ blog.category }}
+                </span>
+
+                <span class="badge bg-success">
+                    {{ blog.created_at.strftime('%d-%m-%Y') }}
+                </span>
+
+            </div>
+
+            <a href="/myblogs" class="btn btn-secondary rounded-pill mt-3">
+                ← Back
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

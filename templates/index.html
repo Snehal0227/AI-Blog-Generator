@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}AI Blog Generator{% endblock %}
+
+{% block content %}
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold fs-3 text-primary" href="#">
+            AI Blog
+        </a>
+
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/features">Features</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+
+            </ul>
+
+            <a href="/login" class="btn btn-primary rounded-pill ms-3 px-4">
+                Login
+            </a>
+
+        </div>
+
+    </div>
+</nav>
+
+<!-- Hero Section -->
+
+<section class="container py-5">
+
+    <div class="row align-items-center">
+
+        <div class="col-lg-6">
+
+            <h1 class="display-4 fw-bold">
+
+                Create Amazing Blogs
+
+                with Artificial Intelligence
+
+            </h1>
+
+            <p class="text-muted mt-4">
+
+                Generate SEO friendly blogs
+
+                within seconds using AI.
+
+                Create • Edit • Publish
+
+                all from one dashboard.
+
+            </p>
+
+            <div class="mt-4">
+
+                <a href="/register" class="btn btn-primary btn-lg rounded-pill px-4">
+
+                    Get Started
+
+                </a>
+
+                <a href="#" class="btn btn-outline-primary btn-lg rounded-pill px-4 ms-2">
+
+                    Learn More
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 text-center">
+
+            <img src="{{ url_for('static',
+filename='images/hero.png') }}" class="img-fluid" style="max-height:550px;">
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

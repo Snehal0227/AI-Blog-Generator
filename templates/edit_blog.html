@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Blog{% endblock %}
+
+{% block content %}
+
+<div class="d-flex">
+
+    {% include "sidebar.html" %}
+
+    <div class="main">
+
+        <div class="card border-0 shadow-lg rounded-4 p-4">
+
+            <h2 class="mb-4">✏ Edit Blog</h2>
+
+            <form method="POST" enctype="multipart/form-data">
+
+                <div class="mb-3">
+
+                    <label>Title</label>
+
+                    <input type="text" name="title" class="form-control" value="{{ blog.title }}" required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>Category</label>
+
+                    <select name="category" class="form-select">
+
+                        <option {% if blog.category=="Technology" %}selected{% endif %}>Technology</option>
+
+                        <option {% if blog.category=="Programming" %}selected{% endif %}>Programming</option>
+
+                        <option {% if blog.category=="AI" %}selected{% endif %}>AI</option>
+
+                        <option {% if blog.category=="Education" %}selected{% endif %}>Education</option>
+
+                    </select>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>Content</label>
+
+                    <textarea name="content" rows="10" class="form-control" required>{{ blog.content }}</textarea>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label>Change Image</label>
+
+                    <input type="file" name="image" class="form-control">
+
+                </div>
+
+                <button class="btn btn-success rounded-pill">
+                    💾 Update Blog
+                </button>
+
+                <a href="/myblogs" class="btn btn-secondary rounded-pill">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

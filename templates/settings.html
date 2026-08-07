@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+
+<div class="d-flex">
+
+    {% include "sidebar.html" %}
+
+    <div class="main">
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            ✅ {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div class="topbar">
+
+            <h2>⚙️ Settings</h2>
+
+        </div>
+
+        <div class="card border-0 shadow-lg rounded-4 p-4">
+
+            <h4 class="mb-4">Account Settings</h4>
+
+            <form action="{{url_for('settings')}}" method="post">
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">
+                        Change Password
+                    </label>
+
+                    <input type="password" class="form-control" placeholder="New Password">
+                </div>
+
+                <div class="form-check form-switch mb-4">
+
+                    <input class="form-check-input" type="checkbox" id="notificationSwitch" checked>
+
+                    <label class="form-check-label" for="notificationSwitch">
+                        Enable Notifications
+                    </label>
+
+                </div>
+
+                <div class="form-check form-switch mb-4">
+
+                    <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+
+                    <label class="form-check-label" for="darkModeSwitch">
+                        Dark Mode
+                    </label>
+
+                    <script>
+
+                        const darkModeSwitch = document.getElementById("darkModeSwitch");
+
+                        darkModeSwitch.addEventListener("change", function () {
+
+                            if (this.checked) {
+                                document.body.classList.add("dark-mode");
+                                localStorage.setItem("darkMode", "on");
+                            } else {
+                                document.body.classList.remove("dark-mode");
+                                localStorage.setItem("darkMode", "off");
+                            }
+
+                        });
+
+                        window.addEventListener("load", function () {
+
+                            if (localStorage.getItem("darkMode") === "on") {
+
+                                document.body.classList.add("dark-mode");
+
+                                darkModeSwitch.checked = true;
+
+                            }
+
+                        });
+
+                    </script>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-bold">
+                        Language
+                    </label>
+
+                    <select class="form-select">
+
+                        <option>English</option>
+                        <option>Marathi</option>
+                        <option>Hindi</option>
+
+                    </select>
+
+                </div>
+
+                <div class="d-flex gap-3">
+
+                    <button class="btn btn-primary rounded-pill">
+                        Save Settings
+                    </button>
+
+            </form>
+
+            <button class="btn btn-danger rounded-pill">
+                Delete Account
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<style>
+    .dark-mode {
+        background-color: #121212 !important;
+        color: white 
+    }
+
+    .dark-mode .card {
+        background-color: #1e1e1e !important;
+        color: white 
+    }
+
+    .dark-mode .form-control,
+    .dark-mode .form-select {
+        background-color: #2b2b2b;
+        color: white;
+        border-color: #555;
+    }
+
+    .dark-mode .text-muted {
+        color: #bbbbbb !important;
+    }
+</style>
+
+{% endblock %}

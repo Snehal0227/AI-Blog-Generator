@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics{% endblock %}
+
+{% block content %}
+
+<div class="d-flex">
+
+    {% include "sidebar.html" %}
+
+    <div class="main">
+
+        <div class="topbar">
+            <h2>📊 Blog Analytics</h2>
+        </div>
+
+        <!-- Stats Cards -->
+
+        <div class="row g-4 mb-4">
+
+            <div class="col-md-4">
+                <div class="card border-0 shadow-lg rounded-4 p-4 text-center">
+                    <h6 class="text-muted">Total Blogs</h6>
+                    <h2 class="fw-bold">{{ total_blogs }}</h2>
+                    <p class="mb-0">📝 Blogs Created</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card border-0 shadow-lg rounded-4 p-4 text-center">
+                    <h6 class="text-muted">AI Blogs</h6>
+                    <h2 class="fw-bold">{{ ai_blogs }}</h2>
+                    <p class="mb-0">🤖 AI Generated</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card border-0 shadow-lg rounded-4 p-4 text-center">
+                    <h6 class="text-muted">Categories</h6>
+                    <h2 class="fw-bold">{{ categories }}</h2>
+                    <p class="mb-0">📂 Categories Used</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Category Summary -->
+
+        <div class="card border-0 shadow-lg rounded-4 p-4">
+
+            <h4 class="mb-4">📂 Blog Category Summary</h4>
+
+            {% for category, count in category_data %}
+
+            <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+
+                <span class="fw-bold">
+                    📁 {{ category }}
+                </span>
+
+                <span class="badge bg-primary rounded-pill">
+                    {{ count }} Blogs
+                </span>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid vh-100">
+
+    <div class="row h-100">
+
+        <!-- Left Section -->
+
+        <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center login-left">
+
+            <div class="text-center text-white">
+
+                <h1 class="display-4 fw-bold">
+                    Join AI Blog Generator
+                </h1>
+
+                <p class="mt-3 fs-5">
+                    Create, Publish & Manage Blogs with AI
+                </p>
+
+                <img src="{{ url_for('static', filename='images/register.jfif') }}" class="img-fluid mt-4"
+                    style="max-width:430px;">
+
+            </div>
+
+        </div>
+
+        <!-- Right Section -->
+
+        <div class="col-lg-6 d-flex align-items-center justify-content-center">
+
+            <div class="login-card">
+
+                <h2 class="fw-bold text-center mb-4">
+
+                    Create Account 🚀
+
+                </h2>
+
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+
+                <div class="alert alert-success">
+
+                    {{ message }}
+
+                </div>
+
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <form action="/register" method="POST">
+
+                    <div class="mb-3">
+
+                        <label>Full Name</label>
+
+                        <input type="text" name="fullname" class="form-control" placeholder="Enter Full Name">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Email</label>
+
+                        <input type="email" name="email" class="form-control" placeholder="Enter Email">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Password</label>
+
+                        <input type="password"  name="password" class="form-control" placeholder="Create Password">
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label>Confirm Password</label>
+
+                        <input type="password" name="confirm_password" class="form-control"
+                            placeholder="Confirm Password">
+
+                    </div>
+
+                    <button class="btn btn-primary w-100 rounded-pill">
+
+                        Register
+
+                    </button>
+
+                </form>
+
+                <div class="text-center mt-4">
+
+                    Already have an account?
+
+                    <a href="/login">
+
+                        Login
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

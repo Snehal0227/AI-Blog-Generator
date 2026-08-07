@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Create Blog{% endblock %}
+
+{% block content %}
+
+<div class="d-flex">
+
+    {% include "sidebar.html" %}
+
+    <div class="main">
+
+        <div class="topbar">
+            <h2>Create New Blog ✍️</h2>
+        </div>
+
+        <div class="card border-0 shadow-lg rounded-4 p-4">
+
+            <form action="{{ url_for('create_blog') }}" method="POST" enctype="multipart/form-data">
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-bold">
+                        Upload Cover Image
+                    </label>
+
+                    <input type="file" name="image" class="form-control" accept="image/*">
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Blog Title</label>
+                    <input type="text" id="title" name="title" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Category</label>
+
+                    <select name="category" class="form-select" required>
+
+                        <option value="Technology">Technology</option>
+                        <option value="Programming">Programming</option>
+                        <option value="AI">AI</option>
+                        <option value="Education">Education</option>
+
+                    </select>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">Content</label>
+
+                    <textarea name="content" id="content" class="form-control" rows="8" required></textarea>
+
+                </div>
+                {{request.method}}
+
+                <button type="submit" class="btn btn-success">
+                    Publish Blog
+                </button>
+
+                <button type="button" class="btn btn-primary rounded-pill" onclick="generateBlog()">
+                    🤖 Generate with AI
+                </button>
+
+            </form>
+            <script>
+                async function generateBlog() {
+
+                    let title = document.getElementById("title").value;
+
+                    if (title == "") {
+                        alert("Please enter blog title");
+                        return;
+                    }
+
+                    console.log("Title:", title);
+
+                    let formData = new FormData();
+                    formData.append("title", title);
+
+                    try {
+
+                        let response = await fetch("/generate_ai", {
+                            method: "POST",
+                            body: formData
+                        });
+
+                        console.log("Status:", response.status);
+
+                        let result = await response.json();
+
+                        console.log("AI Response:", result);
+
+                        // Only AI blog content goes into Content textarea
+                        document.getElementById("content").value = result.content;
+
+                    } catch (error) {
+
+                        console.error("AI Error:", error);
+
+                        alert("AI blog generation failed.");
+
+                    }
+                }
+            </script>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
