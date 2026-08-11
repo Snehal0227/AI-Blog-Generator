@@ -1690,3 +1690,151 @@ body {
     }
 
 }
+
+/* ================================
+   INSIGHTS TABS
+================================ */
+
+.insight-tabs {
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 10px;
+}
+
+.insight-tab {
+    border: none;
+    background: transparent;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.insight-tab:hover {
+    background: #f3f4ff;
+    color: #4f46e5;
+}
+
+.insight-tab.active {
+    background: #4f46e5;
+    color: white;
+}
+
+
+/* Insight content */
+
+.insight-content {
+    display: none;
+}
+
+.insight-content.active {
+    display: block;
+}
+
+
+/* Statistics */
+
+.insight-stat {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 22px;
+    border-radius: 20px;
+    background: #f8f9ff;
+    border: 1px solid #eef0ff;
+}
+
+.insight-stat>span {
+    font-size: 35px;
+}
+
+
+/* Chart */
+
+.insight-chart {
+    padding: 25px;
+    border-radius: 20px;
+    background: linear-gradient(135deg,
+            #f5f3ff,
+            #eef7ff);
+}
+
+.fake-chart {
+    height: 150px;
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 2px solid #dbe1ff;
+}
+
+.chart-line {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(155deg,
+            transparent 48%,
+            #6366f1 49%,
+            #6366f1 51%,
+            transparent 52%);
+    transform: skewY(-8deg);
+}
+
+
+/* Overview */
+
+.overview-box {
+    text-align: center;
+    padding: 25px 15px;
+    border-radius: 20px;
+    background: #f8f9ff;
+    transition: 0.3s;
+}
+
+.overview-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.overview-box span {
+    font-size: 30px;
+}
+
+.overview-box h3 {
+    margin-top: 10px;
+}
+
+
+/* Audience */
+
+.audience-box {
+    text-align: center;
+    padding: 30px 15px;
+    border-radius: 20px;
+    background: linear-gradient(135deg,
+            #f5f3ff,
+            #eef7ff);
+}
+
+.audience-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+    .insight-tabs {
+        overflow-x: auto;
+    }
+
+    .insight-tab {
+        white-space: nowrap;
+        padding: 10px 16px;
+    }
+
+}

@@ -139,6 +139,275 @@
 
         </div>
 
+        <!-- Instagram Style Insights -->
+
+        <div class="analytics-panel mb-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div>
+                    <span class="badge rounded-pill bg-primary-subtle text-primary px-3 py-2">
+                        📊 Insights
+                    </span>
+
+                    <h4 class="fw-bold mt-3 mb-1">
+                        Content Insights
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        Understand your blog performance and audience.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- Insight Tabs -->
+
+            <div class="insight-tabs">
+
+                <button class="insight-tab active" onclick="showInsight('views', this)">
+                    👁️ Views
+                </button>
+
+                <button class="insight-tab" onclick="showInsight('overview', this)">
+                    📈 Overview
+                </button>
+
+                <button class="insight-tab" onclick="showInsight('audience', this)">
+                    👥 Audience
+                </button>
+
+            </div>
+
+
+            <!-- Views -->
+
+            <div id="views" class="insight-content active">
+
+                <div class="row g-4 mt-2">
+
+                    <div class="col-md-4">
+
+                        <div class="insight-stat">
+
+                            <span>👁️</span>
+
+                            <div>
+                                <small class="text-muted">
+                                    Total Views
+                                </small>
+
+                                <h3 class="fw-bold mb-0">
+                                    58K
+                                </h3>
+
+                                <small class="text-success">
+                                    ↑ 18.5%
+                                </small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="insight-stat">
+
+                            <span>📅</span>
+
+                            <div>
+                                <small class="text-muted">
+                                    This Month
+                                </small>
+
+                                <h3 class="fw-bold mb-0">
+                                    12.4K
+                                </h3>
+
+                                <small class="text-success">
+                                    ↑ 12%
+                                </small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="insight-stat">
+
+                            <span>🔥</span>
+
+                            <div>
+                                <small class="text-muted">
+                                    Top Blog
+                                </small>
+
+                                <h6 class="fw-bold mb-0">
+                                    Future of AI
+                                </h6>
+
+                                <small class="text-primary">
+                                    8.2K Views
+                                </small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="insight-chart mt-4">
+
+                    <h5 class="fw-bold">
+                        📈 Views Overview
+                    </h5>
+
+                    <div class="fake-chart">
+
+                        <div class="chart-line"></div>
+
+                    </div>
+
+                    <div class="d-flex justify-content-between text-muted small">
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                        <span>Sun</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Overview -->
+
+            <div id="overview" class="insight-content">
+
+                <div class="row g-4 mt-2">
+
+                    <div class="col-md-3">
+                        <div class="overview-box">
+                            <span>📝</span>
+                            <h3>245</h3>
+                            <small>Total Blogs</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="overview-box">
+                            <span>🤖</span>
+                            <h3>96</h3>
+                            <small>AI Generated</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="overview-box">
+                            <span>✅</span>
+                            <h3>182</h3>
+                            <small>Published</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="overview-box">
+                            <span>⚡</span>
+                            <h3>4.9★</h3>
+                            <small>Performance</small>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Audience -->
+
+            <div id="audience" class="insight-content">
+
+                <div class="row g-4 mt-2">
+
+                    <div class="col-md-4">
+
+                        <div class="audience-box">
+
+                            <div class="audience-icon">
+                                👥
+                            </div>
+
+                            <h3 class="fw-bold">
+                                12.8K
+                            </h3>
+
+                            <p class="text-muted mb-0">
+                                Total Audience
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="audience-box">
+
+                            <div class="audience-icon">
+                                🆕
+                            </div>
+
+                            <h3 class="fw-bold">
+                                8.4K
+                            </h3>
+
+                            <p class="text-muted mb-0">
+                                New Visitors
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="audience-box">
+
+                            <div class="audience-icon">
+                                🔄
+                            </div>
+
+                            <h3 class="fw-bold">
+                                4.4K
+                            </h3>
+
+                            <p class="text-muted mb-0">
+                                Returning Visitors
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
 
         <!-- Main Analytics -->
 
@@ -178,157 +447,183 @@
                     {% for category, count in category_data %}
 
 
+                </div>
+
+                {% endfor %}
+
+                {% else %}
+
+                <div class="text-center py-5">
+
+                    <div style="font-size:55px;">
+                        📊
                     </div>
 
-                    {% endfor %}
+                    <h5 class="fw-bold mt-3">
+                        No Analytics Data Yet
+                    </h5>
 
-                    {% else %}
+                    <p class="text-muted">
+                        Create your first blog to see analytics.
+                    </p>
 
-                    <div class="text-center py-5">
-
-                        <div style="font-size:55px;">
-                            📊
-                        </div>
-
-                        <h5 class="fw-bold mt-3">
-                            No Analytics Data Yet
-                        </h5>
-
-                        <p class="text-muted">
-                            Create your first blog to see analytics.
-                        </p>
-
-                        <a href="/create_blog" class="btn btn-primary rounded-pill">
-                            ✍️ Create Blog
-                        </a>
-
-                    </div>
-
-                    {% endif %}
+                    <a href="/create_blog" class="btn btn-primary rounded-pill">
+                        ✍️ Create Blog
+                    </a>
 
                 </div>
 
-            </div>
-
-
-            <!-- AI Insights -->
-
-            <div class="col-lg-4">
-
-                <div class="analytics-panel h-100">
-
-                    <div class="text-center">
-
-                        <div class="ai-circle">
-                            🤖
-                        </div>
-
-                        <h4 class="fw-bold mt-3">
-                            AI Insights
-                        </h4>
-
-                        <p class="text-muted">
-                            Your content activity at a glance.
-                        </p>
-
-                    </div>
-
-
-                    <hr>
-
-
-                    <div class="insight-item">
-
-                        <span>📝</span>
-
-                        <div>
-                            <strong>
-                                Blog Creation
-                            </strong>
-
-                            <p class="text-muted mb-0">
-                                Keep creating quality content.
-                            </p>
-                        </div>
-
-                    </div>
-
-
-                    <div class="insight-item">
-
-                        <span>🤖</span>
-
-                        <div>
-                            <strong>
-                                AI Usage
-                            </strong>
-
-                            <p class="text-muted mb-0">
-                                AI helps generate content faster.
-                            </p>
-                        </div>
-
-                    </div>
-
-
-                    <div class="insight-item">
-
-                        <span>🚀</span>
-
-                        <div>
-                            <strong>
-                                Productivity
-                            </strong>
-
-                            <p class="text-muted mb-0">
-                                Your workflow is AI assisted.
-                            </p>
-                        </div>
-
-                    </div>
-
-                </div>
+                {% endif %}
 
             </div>
 
         </div>
 
 
-        <!-- Bottom CTA -->
+        <!-- AI Insights -->
 
-        <div class="analytics-cta mt-4">
+        <div class="col-lg-4">
 
-            <div>
+            <div class="analytics-panel h-100">
 
-                <h4 class="fw-bold">
-                    🚀 Ready to create another blog?
-                </h4>
+                <div class="text-center">
 
-                <p class="text-muted mb-0">
-                    Use AI to generate professional content quickly.
-                </p>
+                    <div class="ai-circle">
+                        🤖
+                    </div>
+
+                    <h4 class="fw-bold mt-3">
+                        AI Insights
+                    </h4>
+
+                    <p class="text-muted">
+                        Your content activity at a glance.
+                    </p>
+
+                </div>
+
+
+                <hr>
+
+
+                <div class="insight-item">
+
+                    <span>📝</span>
+
+                    <div>
+                        <strong>
+                            Blog Creation
+                        </strong>
+
+                        <p class="text-muted mb-0">
+                            Keep creating quality content.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="insight-item">
+
+                    <span>🤖</span>
+
+                    <div>
+                        <strong>
+                            AI Usage
+                        </strong>
+
+                        <p class="text-muted mb-0">
+                            AI helps generate content faster.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="insight-item">
+
+                    <span>🚀</span>
+
+                    <div>
+                        <strong>
+                            Productivity
+                        </strong>
+
+                        <p class="text-muted mb-0">
+                            Your workflow is AI assisted.
+                        </p>
+                    </div>
+
+                </div>
 
             </div>
-
-            <a href="/ai_generate" class="btn btn-primary rounded-pill px-4">
-                ✨ Generate with AI
-            </a>
-
-        </div>
-
-
-        <!-- Footer -->
-
-        <div class="text-center text-muted py-4">
-
-            <small>
-                © 2026 AI Blog Generator | Analytics
-            </small>
 
         </div>
 
     </div>
 
+
+    <!-- Bottom CTA -->
+
+    <div class="analytics-cta mt-4">
+
+        <div>
+
+            <h4 class="fw-bold">
+                🚀 Ready to create another blog?
+            </h4>
+
+            <p class="text-muted mb-0">
+                Use AI to generate professional content quickly.
+            </p>
+
+        </div>
+
+        <a href="/ai_generate" class="btn btn-primary rounded-pill px-4">
+            ✨ Generate with AI
+        </a>
+
+    </div>
+
+
+    <!-- Footer -->
+
+    <div class="text-center text-muted py-4">
+
+        <small>
+            © 2026 AI Blog Generator | Analytics
+        </small>
+
+    </div>
+
 </div>
+
+</div>
+
+<script>
+
+    function showInsight(section, button) {
+
+        // Hide all sections
+        document.querySelectorAll(".insight-content")
+            .forEach(function (content) {
+                content.classList.remove("active");
+            });
+
+        // Remove active from all buttons
+        document.querySelectorAll(".insight-tab")
+            .forEach(function (tab) {
+                tab.classList.remove("active");
+            });
+
+        // Show selected section
+        document.getElementById(section)
+            .classList.add("active");
+
+        // Activate clicked button
+        button.classList.add("active");
+    }
+
+</script>
 
 {% endblock %}
