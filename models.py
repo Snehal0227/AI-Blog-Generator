@@ -7,7 +7,6 @@ class User(db.Model):
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
-
 class Blog(db.Model):
 
     __tablename__ = "blogs"
@@ -22,10 +21,10 @@ class Blog(db.Model):
 
     image = db.Column(db.String(255))
 
-    ai_image= db.Column(db.String(255))
+    ai_image = db.Column(db.String(255))
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
-    views = db.column(db.Integer,default=0)
+    views = db.Column(db.Integer, default=0)
