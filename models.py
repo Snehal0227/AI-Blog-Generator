@@ -27,3 +27,5 @@ class Blog(db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+    views = db.column(db.Integer,default=0)
