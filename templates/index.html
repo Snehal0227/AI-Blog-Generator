@@ -4,96 +4,168 @@
 
 {% block content %}
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
+<!-- HERO SECTION -->
+<section class="home-hero">
+
     <div class="container">
+        <div class="row align-items-center min-vh-90">
 
-        <a class="navbar-brand fw-bold fs-3 text-primary" href="#">
-            AI Blog
-        </a>
+            <!-- LEFT CONTENT -->
+            <div class="col-lg-6">
 
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+                <span class="ai-badge">
+                    ✨ AI POWERED BLOGGING
+                </span>
 
-        <div class="collapse navbar-collapse" id="menu">
+                <h1 class="hero-title mt-3">
+                    Create Amazing Blogs
+                    <span>with Artificial Intelligence</span>
+                </h1>
 
-            <ul class="navbar-nav ms-auto">
+                <p class="hero-text">
+                    Generate professional, SEO-friendly and engaging
+                    blog content within seconds using AI.
+                    Create, edit and manage all your blogs from one place.
+                </p>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
+                <div class="hero-buttons mt-4">
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/features">Features</a>
-                </li>
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg rounded-pill px-4">
+                        🚀 Get Started
+                    </a>
+
+                    <a href="{{ url_for('features') }}" class="btn btn-outline-primary btn-lg rounded-pill px-4 ms-2">
+                        Explore Features
+                    </a>
+
+                </div>
+
+                <!-- STATS -->
+                <div class="row mt-5 hero-stats">
+
+                    <div class="col-4">
+                        <h4>AI</h4>
+                        <small>Powered</small>
+                    </div>
+
+                    <div class="col-4">
+                        <h4>⚡ Fast</h4>
+                        <small>Generation</small>
+                    </div>
+
+                    <div class="col-4">
+                        <h4>24/7</h4>
+                        <small>Available</small>
+                    </div>
+
+                </div>
+
+            </div>
 
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact</a>
-                </li>
+            <!-- RIGHT IMAGE -->
+            <div class="col-lg-6 text-center mt-5 mt-lg-0">
 
-            </ul>
+                <div class="hero-image-box">
 
-            <a href="/login" class="btn btn-primary rounded-pill ms-3 px-4">
-                Login
-            </a>
+                    <div class="floating-card card-one">
+                        ✨ AI Generated
+                    </div>
 
-        </div>
+                    <div class="floating-card card-two">
+                        📝 Create Blog
+                    </div>
 
-    </div>
-</nav>
+                    <img src="{{ url_for('static', filename='images/hero.png') }}" class="img-fluid hero-image"
+                        alt="AI Blog Generator">
 
-<!-- Hero Section -->
-
-<section class="container py-5">
-
-    <div class="row align-items-center">
-
-        <div class="col-lg-6">
-
-            <h1 class="display-4 fw-bold">
-
-                Create Amazing Blogs
-
-                with Artificial Intelligence
-
-            </h1>
-
-            <p class="text-muted mt-4">
-
-                Generate SEO friendly blogs
-
-                within seconds using AI.
-
-                Create • Edit • Publish
-
-                all from one dashboard.
-
-            </p>
-
-            <div class="mt-4">
-
-                <a href="/register" class="btn btn-primary btn-lg rounded-pill px-4">
-
-                    Get Started
-
-                </a>
-
-                <a href="#" class="btn btn-outline-primary btn-lg rounded-pill px-4 ms-2">
-
-                    Learn More
-
-                </a>
+                </div>
 
             </div>
 
         </div>
+    </div>
 
-        <div class="col-lg-6 text-center">
+</section>
 
-            <img src="{{ url_for('static',
-filename='images/hero.png') }}" class="img-fluid" style="max-height:550px;">
+
+<!-- WHY AI BLOG GENERATOR -->
+
+<section class="why-section py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <span class="section-badge">
+                WHY CHOOSE US
+            </span>
+
+            <h2 class="fw-bold mt-2">
+                Everything You Need to Create Better Blogs
+            </h2>
+
+            <p class="text-muted">
+                Powerful features designed to make blogging easier.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">🤖</div>
+
+                    <h4>AI Generation</h4>
+
+                    <p>
+                        Generate quality blog content quickly
+                        using Artificial Intelligence.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">⚡</div>
+
+                    <h4>Save Time</h4>
+
+                    <p>
+                        Create structured blog content within
+                        seconds instead of writing everything manually.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">📊</div>
+
+                    <h4>Manage Blogs</h4>
+
+                    <p>
+                        Create, edit, view, search and manage
+                        your blogs from one platform.
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 

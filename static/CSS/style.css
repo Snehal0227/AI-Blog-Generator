@@ -492,3 +492,244 @@ body {
 .main::after {
     pointer-events: none;
 }
+
+/* =================================
+   AI BLOG GENERATOR HOME PAGE
+================================= */
+
+.home-hero {
+    min-height: 90vh;
+    background: linear-gradient(135deg,
+            #eef4ff 0%,
+            #f8f1ff 50%,
+            #eafcff 100%);
+    overflow: hidden;
+}
+
+.min-vh-90 {
+    min-height: 90vh;
+}
+
+.ai-badge,
+.section-badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 30px;
+    background: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.hero-title {
+    font-size: clamp(42px, 5vw, 68px);
+    line-height: 1.08;
+    font-weight: 800;
+    color: #172033;
+}
+
+.hero-title span {
+    display: block;
+    background: linear-gradient(90deg, #0d6efd, #7b2ff7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-text {
+    max-width: 570px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #667085;
+}
+
+.hero-buttons .btn {
+    transition: 0.3s ease;
+}
+
+.hero-buttons .btn:hover {
+    transform: translateY(-3px);
+}
+
+.hero-stats {
+    max-width: 480px;
+}
+
+.hero-stats h4 {
+    font-weight: 800;
+    color: #172033;
+    margin-bottom: 3px;
+}
+
+.hero-stats small {
+    color: #667085;
+}
+
+.hero-image-box {
+    position: relative;
+    display: inline-block;
+    padding: 20px;
+}
+
+.hero-image {
+    max-height: 500px;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 25px 35px rgba(40, 50, 90, 0.18));
+    animation: floatingImage 4s ease-in-out infinite;
+}
+
+@keyframes floatingImage {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+
+}
+
+.floating-card {
+    position: absolute;
+    z-index: 3;
+    padding: 12px 18px;
+    border-radius: 15px;
+    background: white;
+    box-shadow: 0 12px 30px rgba(30, 40, 80, 0.15);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.card-one {
+    top: 12%;
+    left: -20px;
+    animation: cardFloat 3s ease-in-out infinite;
+}
+
+.card-two {
+    right: -20px;
+    bottom: 15%;
+    animation: cardFloat 3s ease-in-out infinite 1s;
+}
+
+@keyframes cardFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+}
+
+
+/* =================================
+   WHY SECTION
+================================= */
+
+.why-section {
+    background: #ffffff;
+}
+
+.feature-card {
+    height: 100%;
+    padding: 35px 28px;
+    border-radius: 22px;
+    background: #ffffff;
+    border: 1px solid #edf0f5;
+    box-shadow: 0 10px 30px rgba(30, 40, 80, 0.06);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(30, 40, 80, 0.12);
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    background: #eef4ff;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.feature-card h4 {
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: #667085;
+    line-height: 1.7;
+}
+
+
+/* =================================
+   MOBILE RESPONSIVE
+================================= */
+
+@media (max-width: 991px) {
+
+    .home-hero {
+        padding: 40px 0;
+    }
+
+    .hero-title {
+        font-size: 45px;
+    }
+
+    .hero-text {
+        font-size: 16px;
+    }
+
+    .hero-image {
+        max-height: 380px;
+    }
+
+    .card-one {
+        left: 0;
+    }
+
+    .card-two {
+        right: 0;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .hero-title {
+        font-size: 38px;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        margin: 7px 0 !important;
+    }
+
+    .hero-stats {
+        text-align: center;
+    }
+
+    .hero-image {
+        max-height: 300px;
+    }
+
+    .floating-card {
+        font-size: 11px;
+        padding: 8px 12px;
+    }
+
+}
