@@ -1364,28 +1364,10 @@ body {
 
 }
 
-/* Hamburger Button */
-.sidebar-toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1100;
+/* =========================
+   SIDEBAR
+========================= */
 
-    border: none;
-    background: #2563eb;
-    color: white;
-
-    width: 45px;
-    height: 45px;
-    border-radius: 10px;
-
-    font-size: 24px;
-    cursor: pointer;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Sidebar hidden initially */
 .sidebar {
     position: fixed;
     top: 0;
@@ -1394,12 +1376,59 @@ body {
     width: 280px;
     height: 100vh;
 
-    z-index: 1050;
+    background: linear-gradient(180deg, #2563eb, #06b6d4);
+    color: white;
 
-    transition: 0.3s ease;
+    z-index: 1050;
+    padding: 25px 20px;
+
+    transition: left 0.3s ease;
+
+    overflow-y: auto;
 }
 
-/* Sidebar open */
+/* Open Sidebar */
 .sidebar.active {
     left: 0;
+}
+
+/* Sidebar text */
+.sidebar a {
+    color: white !important;
+    text-decoration: none;
+}
+
+/* Sidebar links */
+.sidebar .nav-link {
+    color: white !important;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.sidebar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+/* Hamburger */
+.sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+
+    width: 55px;
+    height: 55px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 28px;
+    cursor: pointer;
+
+    z-index: 1100;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
