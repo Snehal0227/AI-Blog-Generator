@@ -336,21 +336,14 @@ def myblogs():
 @app.route("/analytics")
 def analytics():
 
-    # Total blogs
     total_blogs = Blog.query.count()
 
-    # AI generated blogs
     ai_blogs = Blog.query.filter_by(category="AI").count()
 
-    # Total categories
-    categories = (
-        db.session.query(Blog.category)
-        .filter(Blog.category.isnot(None))
-        .distinct()
-        .count()
-    )
+    categories = db.session.query(
+        Blog.category
+    ).distinct().count()
 
-    # Blogs category-wise
     category_data = (
         db.session.query(
             Blog.category,
@@ -360,33 +353,12 @@ def analytics():
         .all()
     )
 
-    # Total views
-    total_views = db.session.query(
-        db.func.coalesce(db.func.sum(Blog.views), 0)
-    ).scalar()
-
-    # Top performing blogs
-    top_blogs = (
-        Blog.query
-        .order_by(Blog.views.desc())
-        .limit(5)
-        .all()
-    )
-
     return render_template(
         "analytics.html",
-
         total_blogs=total_blogs,
-
         ai_blogs=ai_blogs,
-
         categories=categories,
-
-        category_data=category_data,
-
-        total_views=total_views,
-
-        top_blogs=top_blogs
+        category_data=category_data
     )
 
 
