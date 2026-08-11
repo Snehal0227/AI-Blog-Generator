@@ -3,11 +3,14 @@ from flask import Flask, render_template, request, redirect, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 from urllib.parse import quote
-from models import db, User, Blog
 import os
 from dotenv import load_dotenv
 import requests
 
+from models import db, User, Blog
+
+print("BLOG MODEL:", Blog)
+print("BLOG COLUMNS:",Blog.__table__columns.keys())
 load_dotenv()
 
 app = Flask(__name__)
