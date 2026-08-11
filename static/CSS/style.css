@@ -2145,3 +2145,122 @@ body {
     }
 
 }
+
+/* ================================
+   TOP CONTENT
+================================ */
+
+.top-content-item {
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    padding: 18px;
+
+    margin-bottom: 12px;
+
+    border: 1px solid #eef0f6;
+
+    border-radius: 18px;
+
+    background: #ffffff;
+
+    transition: 0.3s;
+}
+
+.top-content-item:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+}
+
+
+/* Ranking */
+
+.rank {
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f0edff;
+
+    color: #4f46e5;
+
+    font-weight: 700;
+}
+
+
+/* Blog information */
+
+.content-info {
+
+    flex: 1;
+}
+
+.content-info h6 {
+    margin-bottom: 3px;
+}
+
+
+/* Views */
+
+.content-views {
+
+    min-width: 75px;
+
+    display: flex;
+    flex-direction: column;
+
+    text-align: right;
+}
+
+.content-views strong {
+
+    font-size: 18px;
+
+    color: #111827;
+}
+
+.content-views small {
+
+    color: #6b7280;
+}
+
+
+/* Mobile */
+
+@media (max-width: 576px) {
+
+    .top-content-item {
+
+        gap: 10px;
+        padding: 14px;
+    }
+
+    .rank {
+
+        width: 38px;
+        height: 38px;
+
+        font-size: 13px;
+    }
+
+    .content-info h6 {
+
+        font-size: 14px;
+    }
+
+    .content-views strong {
+
+        font-size: 14px;
+    }
+
+}
