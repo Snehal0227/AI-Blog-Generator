@@ -1432,3 +1432,54 @@ body {
 
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
+
+/* Sidebar Logo */
+.sidebar .logo {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 35px;
+    color: white;
+}
+
+/* Sidebar List */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Sidebar Items */
+.sidebar li {
+    margin-bottom: 10px;
+}
+
+/* Sidebar Links */
+.sidebar li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 13px 15px;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+    transition: 0.3s ease;
+}
+
+/* Hover */
+.sidebar li a:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateX(4px);
+}
+
+/* Active Dashboard */
+.sidebar li.active a {
+    background: rgba(255, 255, 255, 0.25);
+    font-weight: 600;
+}
+
+/* Icons */
+.sidebar li i {
+    font-size: 20px;
+}
