@@ -4,156 +4,218 @@
 
 {% block content %}
 
-<div class="d-flex">
+<div class="dashboard-wrapper">
 
     {% include "sidebar.html" %}
 
-    <div class="main w-100">
+    <main class="dashboard-main">
 
-        <!-- Topbar -->
-        <div class="topbar d-flex justify-content-between align-items-center mb-4">
+        <!-- TOP HEADER -->
+        <div class="dashboard-header">
 
             <div>
-                <h2 class="fw-bold mb-1">Welcome 👋</h2>
-                <p class="text-muted mb-0">
-                    Manage your blogs and create amazing content with AI.
+                <span class="dashboard-badge">AI BLOG STUDIO</span>
+
+                <h1 class="dashboard-title">
+                    Welcome back, Snehal 👋
+                </h1>
+
+                <p class="dashboard-subtitle">
+                    Create, manage and analyze your AI-powered blogs.
                 </p>
             </div>
 
-            <div class="d-flex align-items-center gap-3">
+            <div class="dashboard-user">
 
-                <input type="text" class="form-control" placeholder="🔍 Search Blog" style="max-width:220px;">
+                <div class="dashboard-search">
+                    🔍
+                    <input type="text" placeholder="Search blogs...">
+                </div>
 
-                <img src="{{ url_for('static', filename='images/profile.avif') }}" class="rounded-circle" width="45"
-                    height="45" style="object-fit:cover;">
+                <img src="{{ url_for('static', filename='images/profile.avif') }}" alt="Profile">
 
             </div>
 
         </div>
 
 
-        <!-- Statistics -->
+        <!-- STATISTICS -->
+
         <div class="row g-4 mb-4">
 
-            <div class="col-lg-3 col-md-6">
-                <div class="card border-0 shadow-lg rounded-4 p-4 h-100">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p class="text-muted mb-1">Total Blogs</p>
-                            <h2 class="fw-bold">245</h2>
-                            <small class="text-success">+18% this month</small>
-                        </div>
+            <div class="col-xl-3 col-md-6">
 
-                        <span style="font-size:35px;">📝</span>
+                <div class="dashboard-stat stat-blue">
+
+                    <div>
+                        <p>Total Blogs</p>
+                        <h2>245</h2>
+                        <small>↗ +18% this month</small>
                     </div>
+
+                    <div class="stat-icon">📝</div>
+
                 </div>
+
             </div>
 
 
-            <div class="col-lg-3 col-md-6">
-                <div class="card border-0 shadow-lg rounded-4 p-4 h-100">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p class="text-muted mb-1">Published</p>
-                            <h2 class="fw-bold">182</h2>
-                            <small class="text-primary">156 Live</small>
-                        </div>
+            <div class="col-xl-3 col-md-6">
 
-                        <span style="font-size:35px;">✅</span>
+                <div class="dashboard-stat stat-green">
+
+                    <div>
+                        <p>Published</p>
+                        <h2>182</h2>
+                        <small>✓ 156 Live</small>
                     </div>
+
+                    <div class="stat-icon">🚀</div>
+
                 </div>
+
             </div>
 
 
-            <div class="col-lg-3 col-md-6">
-                <div class="card border-0 shadow-lg rounded-4 p-4 h-100">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p class="text-muted mb-1">Drafts</p>
-                            <h2 class="fw-bold">41</h2>
-                            <small class="text-warning">Pending Review</small>
-                        </div>
+            <div class="col-xl-3 col-md-6">
 
-                        <span style="font-size:35px;">📄</span>
+                <div class="dashboard-stat stat-orange">
+
+                    <div>
+                        <p>Drafts</p>
+                        <h2>41</h2>
+                        <small>Pending Review</small>
                     </div>
+
+                    <div class="stat-icon">📄</div>
+
                 </div>
+
             </div>
 
 
-            <div class="col-lg-3 col-md-6">
-                <div class="card border-0 shadow-lg rounded-4 p-4 h-100">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p class="text-muted mb-1">AI Generated</p>
-                            <h2 class="fw-bold">96</h2>
-                            <small class="text-danger">+32 today</small>
-                        </div>
+            <div class="col-xl-3 col-md-6">
 
-                        <span style="font-size:35px;">🤖</span>
+                <div class="dashboard-stat stat-purple">
+
+                    <div>
+                        <p>AI Generated</p>
+                        <h2>96</h2>
+                        <small>⚡ +32 today</small>
                     </div>
+
+                    <div class="stat-icon">🤖</div>
+
                 </div>
+
             </div>
 
         </div>
 
 
-        <!-- Main Dashboard Section -->
-        <div class="row g-4">
+        <!-- QUICK ACTIONS -->
+
+        <div class="quick-action-banner">
+
+            <div>
+
+                <span class="mini-label">AI WRITING ASSISTANT</span>
+
+                <h3>
+                    Ready to create your next amazing blog?
+                </h3>
+
+                <p>
+                    Let AI generate professional content for you in seconds.
+                </p>
+
+            </div>
+
+            <a href="/ai_generate" class="ai-action-btn">
+                ✨ Generate with AI
+            </a>
+
+        </div>
 
 
-            <!-- Analytics -->
+        <!-- MAIN CONTENT -->
+
+        <div class="row g-4 mt-1">
+
+            <!-- ANALYTICS -->
+
             <div class="col-lg-8">
 
-                <div class="card border-0 shadow-lg rounded-4 p-4">
+                <div class="dashboard-card">
 
-                    <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="card-heading">
 
                         <div>
-                            <h4 class="fw-bold mb-1">
-                                📊 Analytics Overview
-                            </h4>
 
-                            <p class="text-muted mb-0">
-                                Your blog performance
+                            <span class="card-label">
+                                PERFORMANCE
+                            </span>
+
+                            <h4>📊 Analytics Overview</h4>
+
+                            <p>
+                                Track your blogging activity and growth.
                             </p>
+
                         </div>
 
-                        <a href="/analytics" class="btn btn-outline-primary rounded-pill">
+                        <a href="/analytics" class="outline-btn">
                             View Analytics
                         </a>
 
                     </div>
 
 
-                    <div class="row text-center mb-4">
+                    <div class="analytics-numbers">
 
-                        <div class="col-4">
-                            <h4 class="fw-bold">58K</h4>
-                            <small class="text-muted">Total Views</small>
+                        <div>
+                            <strong>58K</strong>
+                            <span>Total Views</span>
                         </div>
 
-                        <div class="col-4">
-                            <h4 class="fw-bold">245</h4>
-                            <small class="text-muted">Blogs</small>
+                        <div>
+                            <strong>245</strong>
+                            <span>Total Blogs</span>
                         </div>
 
-                        <div class="col-4">
-                            <h4 class="fw-bold">4.9★</h4>
-                            <small class="text-muted">Rating</small>
+                        <div>
+                            <strong>96</strong>
+                            <span>AI Blogs</span>
                         </div>
 
                     </div>
 
-                    <div class="p-4 rounded-4" style="background:linear-gradient(135deg,#f3e8ff,#eef2ff);">
 
-                        <h5 class="fw-bold">
-                            🚀 Keep creating!
-                        </h5>
+                    <div class="analytics-visual">
 
-                        <p class="text-muted mb-0">
-                            Your AI-powered blog generator is helping
-                            you create content faster.
-                        </p>
+                        <div class="chart-bars">
+
+                            <span style="height:35%"></span>
+                            <span style="height:55%"></span>
+                            <span style="height:45%"></span>
+                            <span style="height:75%"></span>
+                            <span style="height:60%"></span>
+                            <span style="height:90%"></span>
+                            <span style="height:70%"></span>
+                            <span style="height:100%"></span>
+
+                        </div>
+
+                        <div class="chart-labels">
+                            <span>Mon</span>
+                            <span>Tue</span>
+                            <span>Wed</span>
+                            <span>Thu</span>
+                            <span>Fri</span>
+                            <span>Sat</span>
+                            <span>Sun</span>
+                            <span>Today</span>
+                        </div>
 
                     </div>
 
@@ -162,29 +224,36 @@
             </div>
 
 
-            <!-- Quick Actions -->
+            <!-- QUICK ACTIONS -->
+
             <div class="col-lg-4">
 
-                <div class="card border-0 shadow-lg rounded-4 p-4 h-100">
+                <div class="dashboard-card quick-card">
 
-                    <h4 class="fw-bold mb-3">
-                        ⚡ Quick Actions
-                    </h4>
+                    <span class="card-label">
+                        QUICK ACTIONS
+                    </span>
 
-                    <a href="/create_blog" class="btn btn-primary w-100 rounded-pill my-2">
+                    <h4>⚡ What do you want to do?</h4>
+
+                    <a href="/create_blog" class="dashboard-action primary-action">
                         ✍️ Create Blog
+                        <span>→</span>
                     </a>
 
-                    <a href="/ai_generate" class="btn btn-outline-primary w-100 rounded-pill my-2">
+                    <a href="/ai_generate" class="dashboard-action">
                         🤖 Generate with AI
+                        <span>→</span>
                     </a>
 
-                    <a href="/myblogs" class="btn btn-outline-dark w-100 rounded-pill my-2">
-                        📚 View My Blogs
+                    <a href="/myblogs" class="dashboard-action">
+                        📚 My Blogs
+                        <span>→</span>
                     </a>
 
-                    <a href="/analytics" class="btn btn-outline-success w-100 rounded-pill my-2">
+                    <a href="/analytics" class="dashboard-action">
                         📊 Analytics
+                        <span>→</span>
                     </a>
 
                 </div>
@@ -194,247 +263,230 @@
         </div>
 
 
-        <!-- Recent Blogs + AI Assistant -->
+        <!-- RECENT BLOGS -->
+
+        <div class="dashboard-card mt-4">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <span class="card-label">
+                        CONTENT
+                    </span>
+
+                    <h4>📝 Recent Blogs</h4>
+
+                    <p>
+                        Recently created blog posts.
+                    </p>
+
+                </div>
+
+                <a href="/myblogs" class="outline-btn">
+                    View All
+                </a>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="dashboard-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Blog</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>
+                                <div class="blog-title">
+                                    <span class="blog-mini-icon">🤖</span>
+                                    Future of Artificial Intelligence
+                                </div>
+                            </td>
+
+                            <td>Technology</td>
+
+                            <td>
+                                <span class="status published">
+                                    Published
+                                </span>
+                            </td>
+
+                            <td>31 Jul</td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <div class="blog-title">
+                                    <span class="blog-mini-icon">🐍</span>
+                                    Top Python Libraries
+                                </div>
+                            </td>
+
+                            <td>Programming</td>
+
+                            <td>
+                                <span class="status draft">
+                                    Draft
+                                </span>
+                            </td>
+
+                            <td>29 Jul</td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <div class="blog-title">
+                                    <span class="blog-mini-icon">🔥</span>
+                                    Flask Complete Guide
+                                </div>
+                            </td>
+
+                            <td>Python</td>
+
+                            <td>
+                                <span class="status scheduled">
+                                    Scheduled
+                                </span>
+                            </td>
+
+                            <td>27 Jul</td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- BOTTOM CARDS -->
+
         <div class="row g-4 mt-1">
 
 
-            <!-- Recent Blogs -->
-            <div class="col-lg-8">
+            <!-- AI ASSISTANT -->
 
-                <div class="card border-0 shadow-lg rounded-4 p-4">
+            <div class="col-lg-5">
 
-                    <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="ai-assistant-card">
 
-                        <h4 class="fw-bold mb-0">
-                            📝 Recent Blogs
-                        </h4>
+                    <div class="ai-glow">🤖</div>
 
-                        <a href="/myblogs" class="btn btn-primary btn-sm rounded-pill">
-                            View All
+                    <div>
+
+                        <span>AI ASSISTANT</span>
+
+                        <h3>
+                            Your AI writing partner
+                        </h3>
+
+                        <p>
+                            Generate SEO-friendly and engaging
+                            blog content instantly.
+                        </p>
+
+                        <a href="/ai_generate">
+                            Start Creating →
                         </a>
 
                     </div>
 
-
-                    <div class="table-responsive">
-
-                        <table class="table table-hover align-middle">
-
-                            <thead>
-
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Category</th>
-                                    <th>Status</th>
-                                    <th>Date</th>
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                <tr>
-
-                                    <td>
-                                        Future of Artificial Intelligence
-                                    </td>
-
-                                    <td>
-                                        Technology
-                                    </td>
-
-                                    <td>
-                                        <span class="badge bg-success">
-                                            Published
-                                        </span>
-                                    </td>
-
-                                    <td>
-                                        31 Jul
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>
-                                        Top Python Libraries
-                                    </td>
-
-                                    <td>
-                                        Programming
-                                    </td>
-
-                                    <td>
-                                        <span class="badge bg-warning text-dark">
-                                            Draft
-                                        </span>
-                                    </td>
-
-                                    <td>
-                                        29 Jul
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>
-                                        Flask Complete Guide
-                                    </td>
-
-                                    <td>
-                                        Python
-                                    </td>
-
-                                    <td>
-                                        <span class="badge bg-primary">
-                                            Scheduled
-                                        </span>
-                                    </td>
-
-                                    <td>
-                                        27 Jul
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
                 </div>
 
             </div>
 
 
-            <!-- AI Assistant -->
-            <div class="col-lg-4">
+            <!-- PROFILE -->
 
-                <div class="card border-0 shadow-lg rounded-4 p-4 text-center">
+            <div class="col-lg-3">
 
-                    <div style="font-size:55px;">
-                        🤖
+                <div class="dashboard-card profile-card">
+
+                    <img src="{{ url_for('static', filename='images/sneha.jfif') }}" alt="Snehal">
+
+                    <h4>Snehal Darade</h4>
+
+                    <p>AI Blog Creator</p>
+
+                    <div class="profile-stats">
+
+                        <div>
+                            <strong>245</strong>
+                            <small>Blogs</small>
+                        </div>
+
+                        <div>
+                            <strong>58K</strong>
+                            <small>Views</small>
+                        </div>
+
                     </div>
 
-                    <h4 class="fw-bold mt-2">
-                        AI Assistant
-                    </h4>
-
-                    <p class="text-muted">
-                        Create SEO-friendly blogs
-                        in seconds using AI.
-                    </p>
-
-                    <a href="/ai_generate" class="btn btn-primary rounded-pill w-100">
-                        ✨ Generate Blog
+                    <a href="/profile">
+                        View Profile →
                     </a>
 
                 </div>
 
-
-                <div class="card border-0 shadow-lg rounded-4 p-4 mt-4">
-
-                    <h4 class="fw-bold">
-                        🔔 Today's Activity
-                    </h4>
-
-                    <ul class="list-unstyled mt-3 mb-0">
-
-                        <li class="mb-3">
-                            ✅ Blog Published Successfully
-                        </li>
-
-                        <li class="mb-3">
-                            🤖 AI Generated New Content
-                        </li>
-
-                        <li class="mb-3">
-                            📊 Analytics Updated
-                        </li>
-
-                    </ul>
-
-                </div>
-
             </div>
 
-        </div>
 
+            <!-- ACTIVITY -->
 
-        <!-- Profile + Notifications -->
-        <div class="row g-4 mt-1">
-
-
-            <!-- Profile -->
             <div class="col-lg-4">
 
-                <div class="card border-0 shadow-lg rounded-4 p-4">
+                <div class="dashboard-card activity-card">
 
-                    <div class="text-center">
+                    <span class="card-label">
+                        RECENT ACTIVITY
+                    </span>
 
-                        <img src="{{ url_for('static', filename='images/sneha.jfif') }}" width="90" height="90"
-                            class="rounded-circle mb-3" style="object-fit:cover;">
+                    <h4>🔔 Notifications</h4>
 
-                        <h4 class="fw-bold">
-                            Snehal Darade
-                        </h4>
-
-                        <p class="text-muted">
-                            AI Blog Creator
-                        </p>
-
-                    </div>
-
-                    <hr>
-
-                    <div class="d-flex justify-content-between text-center">
-
+                    <div class="activity-item">
+                        <span>✅</span>
                         <div>
-                            <h5 class="fw-bold">245</h5>
-                            <small class="text-muted">Blogs</small>
+                            <strong>Blog Published</strong>
+                            <small>Recently</small>
                         </div>
+                    </div>
 
+                    <div class="activity-item">
+                        <span>🤖</span>
                         <div>
-                            <h5 class="fw-bold">58K</h5>
-                            <small class="text-muted">Views</small>
+                            <strong>AI Content Generated</strong>
+                            <small>Today</small>
                         </div>
+                    </div>
 
+                    <div class="activity-item">
+                        <span>📊</span>
                         <div>
-                            <h5 class="fw-bold">4.9★</h5>
-                            <small class="text-muted">Rating</small>
+                            <strong>Analytics Updated</strong>
+                            <small>Today</small>
                         </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- Notifications -->
-            <div class="col-lg-8">
-
-                <div class="card border-0 shadow-lg rounded-4 p-4">
-
-                    <h4 class="fw-bold mb-4">
-                        🔔 Notifications
-                    </h4>
-
-                    <div class="alert alert-success rounded-4">
-                        ✅ Blog Published Successfully
-                    </div>
-
-                    <div class="alert alert-warning rounded-4">
-                        ⚠️ Draft Needs Review
-                    </div>
-
-                    <div class="alert alert-primary rounded-4 mb-0">
-                        🤖 AI Generated New Content
                     </div>
 
                 </div>
@@ -444,16 +496,13 @@
         </div>
 
 
-        <!-- Footer -->
-        <div class="text-center text-muted py-4 mt-4">
+        <!-- FOOTER -->
 
-            <small>
-                © 2026 AI Blog Generator | Designed with 💜
-            </small>
-
+        <div class="dashboard-footer">
+            © 2026 AI Blog Generator · Designed with 💜
         </div>
 
-    </div>
+    </main>
 
 </div>
 
