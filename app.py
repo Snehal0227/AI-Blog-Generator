@@ -6,7 +6,8 @@ from urllib.parse import quote
 import os
 from dotenv import load_dotenv
 import requests
-from models import db, User, Blog
+
+load_dotenv()
 
 
 app = Flask(__name__)
