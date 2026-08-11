@@ -6,6 +6,11 @@
 
 <div class="dashboard-wrapper">
 
+    <button id="sidebarToggle" class="sidebar-toggle">
+        ☰
+    </button>
+
+
     {% include "sidebar.html" %}
 
     <main class="dashboard-main">
@@ -505,5 +510,18 @@
     </main>
 
 </div>
+
+<script>
+
+    const toggle = document.getElementById("sidebarToggle");
+    const sidebar = document.querySelector(".sidebar");
+
+    toggle.addEventListener("click", function () {
+
+        sidebar.classList.toggle("active");
+
+    });
+
+</script>
 
 {% endblock %}

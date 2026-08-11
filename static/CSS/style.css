@@ -1363,3 +1363,43 @@ body {
     }
 
 }
+
+/* Hamburger Button */
+.sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1100;
+
+    border: none;
+    background: #2563eb;
+    color: white;
+
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+
+    font-size: 24px;
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Sidebar hidden initially */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+
+    width: 280px;
+    height: 100vh;
+
+    z-index: 1050;
+
+    transition: 0.3s ease;
+}
+
+/* Sidebar open */
+.sidebar.active {
+    left: 0;
+}
