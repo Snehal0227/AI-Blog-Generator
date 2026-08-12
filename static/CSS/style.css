@@ -2264,3 +2264,343 @@ body {
     }
 
 }
+
+/* ============================= */
+/* CREATE BLOG PAGE */
+/* ============================= */
+
+.create-navbar {
+    min-height: 80px;
+    padding: 18px 35px;
+    background: white;
+    border-bottom: 1px solid #eee;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.create-container {
+    padding: 40px;
+    background: #f7f8fc;
+    min-height: calc(100vh - 80px);
+}
+
+.create-heading {
+    margin-bottom: 30px;
+}
+
+.create-badge {
+    display: inline-block;
+    padding: 8px 15px;
+
+    border-radius: 30px;
+
+    background: #eef2ff;
+    color: #4f46e5;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.create-heading h1 {
+    margin-top: 15px;
+    font-size: 34px;
+    font-weight: 800;
+    color: #17172b;
+}
+
+.create-heading p {
+    color: #777;
+    font-size: 16px;
+}
+
+
+/* Main form card */
+
+.create-card {
+    background: white;
+
+    padding: 32px;
+
+    border-radius: 22px;
+
+    border: 1px solid #eee;
+
+    box-shadow:
+        0 10px 35px rgba(20, 20, 50, 0.06);
+}
+
+
+/* Form */
+
+.form-section {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    font-weight: 700;
+    margin-bottom: 9px;
+    color: #25253a;
+}
+
+.custom-input {
+    min-height: 52px;
+
+    border-radius: 13px;
+
+    border: 1px solid #ddd;
+
+    padding: 12px 15px;
+}
+
+.custom-input:focus,
+.blog-editor:focus {
+    border-color: #635bff;
+
+    box-shadow:
+        0 0 0 4px rgba(99, 91, 255, 0.10);
+}
+
+
+/* Upload */
+
+.upload-box {
+    padding: 25px;
+
+    border: 2px dashed #d8d8e8;
+
+    border-radius: 16px;
+
+    text-align: center;
+
+    background: #fafaff;
+
+    transition: 0.3s;
+}
+
+.upload-box:hover {
+    border-color: #635bff;
+    background: #f5f4ff;
+}
+
+.upload-icon {
+    font-size: 38px;
+    margin-bottom: 8px;
+}
+
+.upload-box input {
+    margin-top: 15px;
+}
+
+
+/* Editor */
+
+.blog-editor {
+    border-radius: 15px;
+
+    border: 1px solid #ddd;
+
+    padding: 18px;
+
+    resize: vertical;
+
+    min-height: 300px;
+}
+
+.editor-footer {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 8px;
+
+    color: #999;
+
+    font-size: 12px;
+}
+
+.content-tip {
+    color: #635bff;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* Buttons */
+
+.create-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    padding-top: 10px;
+
+    border-top: 1px solid #eee;
+}
+
+
+/* AI Card */
+
+.ai-create-card {
+    padding: 30px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(145deg,
+            #635bff,
+            #8b5cf6);
+
+    color: white;
+
+    box-shadow:
+        0 15px 40px rgba(99, 91, 255, 0.25);
+}
+
+.ai-create-icon {
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    font-size: 30px;
+}
+
+.ai-label {
+    display: inline-block;
+
+    margin-top: 20px;
+
+    font-size: 11px;
+
+    letter-spacing: 1.5px;
+
+    font-weight: 700;
+
+    opacity: 0.8;
+}
+
+.ai-create-card p {
+    color: rgba(255, 255, 255, 0.8);
+
+    line-height: 1.6;
+}
+
+
+/* AI Features */
+
+.ai-feature {
+    display: flex;
+
+    gap: 13px;
+
+    margin-top: 20px;
+
+    align-items: center;
+}
+
+.ai-feature>span {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.ai-feature strong {
+    display: block;
+}
+
+.ai-feature small {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+
+/* Tips */
+
+.tips-card {
+    padding: 25px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    border: 1px solid #eee;
+}
+
+.tips-card ul {
+    padding-left: 20px;
+
+    margin-bottom: 0;
+}
+
+.tips-card li {
+    margin-bottom: 10px;
+
+    color: #777;
+
+    font-size: 14px;
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+    .create-navbar {
+        padding: 15px 20px;
+    }
+
+    .create-container {
+        padding: 25px 15px;
+    }
+
+    .create-heading h1 {
+        font-size: 27px;
+    }
+
+    .create-card {
+        padding: 22px;
+    }
+
+    .create-actions {
+        flex-direction: column;
+    }
+
+    .create-actions .btn {
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .create-navbar {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .create-heading h1 {
+        font-size: 24px;
+    }
+
+    .editor-footer {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+}

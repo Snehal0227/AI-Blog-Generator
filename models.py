@@ -36,5 +36,6 @@ class Blog(db.Model):
 
     views = db.Column(
         db.Integer,
-        default=0
+        default=0,
+        nullable=False
     )
