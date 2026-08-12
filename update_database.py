@@ -5,6 +5,9 @@ from sqlalchemy import inspect, text
 
 with app.app_context():
 
+    # Database tables create
+    db.create_all()
+
     inspector = inspect(db.engine)
 
     # Check blogs table
@@ -21,10 +24,10 @@ with app.app_context():
 
         print("Existing columns:", columns)
 
-        # Add views column only if it does not already exist
+        # Add views column if missing
         if "views" not in columns:
 
-            with db.engine.begin() as connection:
+            with db.engine.connect() as connection:
 
                 connection.execute(
                     text(
@@ -33,10 +36,12 @@ with app.app_context():
                     )
                 )
 
+                connection.commit()
+
             print("SUCCESS: views column added!")
 
         else:
 
             print("views column already exists!")
 
-        print("Database update completed.")
+        print("Database update completed successfully!")
