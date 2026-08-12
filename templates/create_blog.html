@@ -31,11 +31,9 @@
 
 
         <!-- Page Content -->
-
         <div class="create-container">
 
             <!-- Header -->
-
             <div class="create-heading">
 
                 <div class="create-badge">
@@ -54,12 +52,11 @@
             </div>
 
 
-            <!-- Main Form -->
-
+            <!-- Main Row -->
             <div class="row g-4">
 
-                <!-- Left Form -->
 
+                <!-- LEFT SIDE -->
                 <div class="col-lg-8">
 
                     <div class="create-card">
@@ -68,7 +65,6 @@
 
 
                             <!-- Blog Title -->
-
                             <div class="form-section">
 
                                 <label class="form-label">
@@ -82,7 +78,6 @@
 
 
                             <!-- Category -->
-
                             <div class="form-section">
 
                                 <label class="form-label">
@@ -132,8 +127,46 @@
                             </div>
 
 
-                            <!-- Cover Image -->
+                            <!-- Keywords -->
+                            <div class="form-section">
 
+                                <label class="form-label">
+                                    Keywords
+                                </label>
+
+                                <input type="text" id="keywords" class="form-control custom-input"
+                                    placeholder="Example: AI, Python, Technology">
+
+                            </div>
+
+
+                            <!-- Blog Length -->
+                            <div class="form-section">
+
+                                <label class="form-label">
+                                    Blog Length
+                                </label>
+
+                                <select id="length" class="form-select custom-input">
+
+                                    <option value="Short (500 Words)">
+                                        Short (500 Words)
+                                    </option>
+
+                                    <option value="Medium (1000 Words)" selected>
+                                        Medium (1000 Words)
+                                    </option>
+
+                                    <option value="Long (1500 Words)">
+                                        Long (1500 Words)
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- Cover Image -->
                             <div class="form-section">
 
                                 <label class="form-label">
@@ -156,29 +189,42 @@
 
                                     <input type="file" id="image" name="image" class="form-control" accept="image/*">
 
+                                    <!-- Image Preview -->
+                                    <img id="imagePreview" style="display:none;" class="img-fluid rounded-4 mt-3"
+                                        alt="Image Preview">
+
                                 </div>
 
                             </div>
 
 
                             <!-- Blog Content -->
-
                             <div class="form-section">
 
+                                <!-- Content Header -->
                                 <div class="d-flex
                                             justify-content-between
-                                            align-items-center">
+                                            align-items-center
+                                            mb-2">
 
-                                    <label class="form-label">
+                                    <label class="form-label mb-0">
                                         Blog Content
                                     </label>
 
 
-                                        <a href="/ai_generate" class="btn btn-primary btn-sm rounded-pill px-3">
-                                            ✨ Generate Blog with AI
-                                        </a>
+                                    <!-- Generate Button -->
+                                    <button type="button" id="generateBtn" class="btn btn-primary
+                                               btn-sm rounded-pill px-3">
 
-                                    </div>
+                                        ✨ Generate Blog with AI
+
+                                    </button>
+
+                                </div>
+
+
+                                <!-- AI Label -->
+                                <div class="mb-2">
 
                                     <span class="content-tip">
                                         ✨ AI Assisted
@@ -186,17 +232,21 @@
 
                                 </div>
 
+
+                                <!-- Content Textarea -->
                                 <textarea id="content" name="content" class="form-control blog-editor" rows="14"
                                     placeholder="Start writing your blog here..." required></textarea>
 
+
+                                <!-- Editor Footer -->
                                 <div class="editor-footer">
 
                                     <span>
                                         📝 Write clear and engaging content
                                     </span>
 
-                                    <span>
-                                        AI Ready ✨
+                                    <span id="wordCount">
+                                        0 words
                                     </span>
 
                                 </div>
@@ -205,15 +255,16 @@
 
 
                             <!-- Buttons -->
-
                             <div class="create-actions">
 
                                 <a href="/dashboard" class="btn btn-light rounded-pill px-4">
+
                                     Cancel
+
                                 </a>
 
-                                <button id="publishBtn" type="submit" class="btn btn-primary
-                                           rounded-pill px-5">
+
+                                <button id="publishBtn" type="submit" class="btn btn-primary rounded-pill px-5">
 
                                     💾 Publish Blog
 
@@ -229,10 +280,11 @@
                 </div>
 
 
-                <!-- Right AI Panel -->
-
+                <!-- RIGHT SIDE -->
                 <div class="col-lg-4">
 
+
+                    <!-- AI Card -->
                     <div class="ai-create-card">
 
                         <div class="ai-create-icon">
@@ -304,18 +356,17 @@
                         </div>
 
 
-                        <a href="/ai_generate" class="btn btn-light
-                                  w-100 rounded-pill mt-4">
+                        <button type="button" id="generateBtnSide" class="btn btn-light
+                                   w-100 rounded-pill mt-4">
 
-                            ✨ Open AI Generator
+                            ✨ Generate Blog
 
-                        </a>
+                        </button>
 
                     </div>
 
 
                     <!-- Quick Tips -->
-
                     <div class="tips-card mt-4">
 
                         <h6 class="fw-bold">
@@ -348,16 +399,15 @@
 
             </div>
 
-        </div>
 
+            <!-- Footer -->
+            <div class="text-center text-muted py-4">
 
-        <!-- Footer -->
+                <small>
+                    © 2026 AI Blog Generator
+                </small>
 
-        <div class="text-center text-muted py-4">
-
-            <small>
-                © 2026 AI Blog Generator
-            </small>
+            </div>
 
         </div>
 
@@ -365,65 +415,321 @@
 
 </div>
 
+
+<!-- ============================= -->
+<!-- JAVASCRIPT -->
+<!-- ============================= -->
+
 <script>
-    // Image Preview
-    const imageInput = document.getElementById("image");
-    const imagePreview = document.getElementById("imagePreview");
 
-    if (imageInput) {
-        imageInput.addEventListener("change", function () {
+    document.addEventListener("DOMContentLoaded", function () {
 
-            const file = this.files[0];
 
-            if (file) {
-                const reader = new FileReader();
+        /* ==========================
+           IMAGE PREVIEW
+        ========================== */
 
-                reader.onload = function (e) {
-                    imagePreview.src = e.target.result;
-                    imagePreview.style.display = "block";
-                };
+        const imageInput =
+            document.getElementById("image");
 
-                reader.readAsDataURL(file);
+        const imagePreview =
+            document.getElementById("imagePreview");
+
+
+        if (imageInput) {
+
+            imageInput.addEventListener("change", function () {
+
+                const file = this.files[0];
+
+                if (file) {
+
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+
+                        imagePreview.src = e.target.result;
+
+                        imagePreview.style.display = "block";
+
+                    };
+
+                    reader.readAsDataURL(file);
+
+                }
+
+            });
+
+        }
+
+
+        /* ==========================
+           WORD COUNTER
+        ========================== */
+
+        const content =
+            document.getElementById("content");
+
+        const wordCount =
+            document.getElementById("wordCount");
+
+
+        if (content) {
+
+            content.addEventListener("input", function () {
+
+                const text = this.value.trim();
+
+                if (text === "") {
+
+                    wordCount.innerText = "0 words";
+
+                } else {
+
+                    const words =
+                        text.split(/\s+/).length;
+
+                    wordCount.innerText =
+                        words + " words";
+
+                }
+
+            });
+
+        }
+
+
+        /* ==========================
+           AI BLOG GENERATION
+        ========================== */
+
+        const generateBtn =
+            document.getElementById("generateBtn");
+
+        const generateBtnSide =
+            document.getElementById("generateBtnSide");
+
+
+        async function generateBlog(button) {
+
+
+            const title =
+                document.getElementById("title")
+                    .value.trim();
+
+
+            const keywords =
+                document.getElementById("keywords")
+                    .value.trim();
+
+
+            const length =
+                document.getElementById("length")
+                    .value;
+
+
+            const contentBox =
+                document.getElementById("content");
+
+
+            /* Check title */
+
+            if (!title) {
+
+                alert("Please enter blog title first.");
+
+                document.getElementById("title").focus();
+
+                return;
+
             }
-        });
-    }
 
 
-    // Word Counter
-    const content = document.getElementById("content");
-    const wordCount = document.getElementById("wordCount");
+            /* Button Loading */
 
-    if (content) {
-        content.addEventListener("input", function () {
+            const originalText =
+                button.innerHTML;
 
-            const text = this.value.trim();
+            button.innerHTML =
+                "⏳ Generating...";
 
-            if (text === "") {
-                wordCount.innerText = "0 words";
-            } else {
-                const words = text.split(/\s+/).length;
-                wordCount.innerText = words + " words";
+            button.disabled = true;
+
+
+            try {
+
+
+                /* Form Data */
+
+                const formData =
+                    new FormData();
+
+
+                formData.append(
+                    "title",
+                    title
+                );
+
+
+                formData.append(
+                    "keywords",
+                    keywords
+                );
+
+
+                formData.append(
+                    "length",
+                    length
+                );
+
+
+                /* Send request to Flask */
+
+                const response =
+                    await fetch(
+                        "/generate_ai",
+                        {
+                            method: "POST",
+                            body: formData
+                        }
+                    );
+
+
+                /* Convert response */
+
+                const data =
+                    await response.json();
+
+
+                /* Put AI blog inside textarea */
+
+                if (data.content) {
+
+                    contentBox.value =
+                        data.content;
+
+
+                    /* Update word count */
+
+                    const words =
+                        data.content
+                            .trim()
+                            .split(/\s+/)
+                            .length;
+
+
+                    wordCount.innerText =
+                        words + " words";
+
+
+                    /* Scroll to content */
+
+                    contentBox.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+
+                } else {
+
+                    alert(
+                        data.error ||
+                        "Blog generation failed."
+                    );
+
+                }
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Something went wrong while generating the blog."
+                );
+
+
+            } finally {
+
+                button.innerHTML =
+                    originalText;
+
+                button.disabled = false;
+
             }
 
-        });
-    }
+        }
 
 
-    // Form Submit Button
-    const form = document.getElementById("blogForm");
+        /* Main Generate Button */
 
-    if (form) {
-        form.addEventListener("submit", function () {
+        if (generateBtn) {
 
-            const button = document.getElementById("publishBtn");
+            generateBtn.addEventListener(
+                "click",
+                function () {
 
-            if (button) {
-                button.innerHTML = "⏳ Publishing...";
-                button.disabled = true;
-            }
+                    generateBlog(this);
 
-        });
-    }
+                }
+            );
+
+        }
+
+
+        /* Right Side Generate Button */
+
+        if (generateBtnSide) {
+
+            generateBtnSide.addEventListener(
+                "click",
+                function () {
+
+                    generateBlog(this);
+
+                }
+            );
+
+        }
+
+
+        /* ==========================
+           PUBLISH BUTTON
+        ========================== */
+
+        const form =
+            document.getElementById("blogForm");
+
+
+        if (form) {
+
+            form.addEventListener(
+                "submit",
+                function () {
+
+                    const publishBtn =
+                        document.getElementById(
+                            "publishBtn"
+                        );
+
+
+                    if (publishBtn) {
+
+                        publishBtn.innerHTML =
+                            "⏳ Publishing...";
+
+                        publishBtn.disabled = true;
+
+                    }
+
+                }
+            );
+
+        }
+
+    });
+
 </script>
+
 
 {% endblock %}
