@@ -20,6 +20,72 @@
     <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
+    <style>
+        body.dark-mode {
+            background: #121212 !important;
+            color: #f5f5f5 !important;
+        }
+
+        body.dark-mode .main {
+            background: #121212 !important;
+        }
+
+        body.dark-mode .card {
+            background: #1e1e1e !important;
+            color: #fff !important;
+        }
+
+        body.dark-mode .text-muted {
+            color: #bdbdbd !important;
+        }
+
+        body.dark-mode h1,
+        body.dark-mode h2,
+        body.dark-mode h3,
+        body.dark-mode h4,
+        body.dark-mode h5,
+        body.dark-mode h6,
+        body.dark-mode p,
+        body.dark-mode label {
+            color: #fff !important;
+        }
+
+        body.dark-mode .form-control,
+        body.dark-mode .form-select,
+        body.dark-mode textarea {
+            background: #2b2b2b !important;
+            color: #fff !important;
+            border-color: #555 !important;
+        }
+
+        body.dark-mode .form-control::placeholder,
+        body.dark-mode textarea::placeholder {
+            color: #aaa !important;
+        }
+
+        body.dark-mode .table {
+            color: #fff !important;
+        }
+
+        body.dark-mode .table-hover tbody tr:hover {
+            background: #2b2b2b !important;
+        }
+
+        body.dark-mode hr {
+            border-color: #555 !important;
+        }
+
+        body.dark-mode .settings-info-card,
+        body.dark-mode .analytics-panel,
+        body.dark-mode .analytics-card,
+        body.dark-mode .create-card,
+        body.dark-mode .ai-create-card,
+        body.dark-mode .tips-card {
+            background: #1e1e1e !important;
+            color: #fff !important;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -78,6 +144,57 @@
     <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 
     <script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Check saved dark mode
+            if (localStorage.getItem("darkMode") === "on") {
+                document.body.classList.add("dark-mode");
+            }
+
+            // Find dark mode switch
+            const darkModeSwitch =
+                document.getElementById("darkModeSwitch");
+
+            if (darkModeSwitch) {
+
+                // Set switch according to saved setting
+                darkModeSwitch.checked =
+                    localStorage.getItem("darkMode") === "on";
+
+
+                // Switch ON/OFF
+                darkModeSwitch.addEventListener("change", function () {
+
+                    if (this.checked) {
+
+                        document.body.classList.add("dark-mode");
+
+                        localStorage.setItem(
+                            "darkMode",
+                            "on"
+                        );
+
+                    } else {
+
+                        document.body.classList.remove(
+                            "dark-mode"
+                        );
+
+                        localStorage.setItem(
+                            "darkMode",
+                            "off"
+                        );
+                    }
+
+                });
+            }
+
+        });
+
+    </script>
 
 </body>
 
