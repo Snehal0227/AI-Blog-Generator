@@ -468,17 +468,6 @@ def settings():
 
     return render_template("settings.html")
 
-# ==========================
-# VIEW BLOG
-# ==========================
-
-@app.route("/view_blog/<int:id>")
-def view_blog(id):
-
-    blog = Blog.query.get_or_404(id)
-
-    return render_template("view_blog.html", blog=blog)
-
 
 # ==========================
 # EDIT BLOG
