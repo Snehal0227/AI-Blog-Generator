@@ -259,33 +259,69 @@ def generate_ai():
 # ==========================
 # CREATE BLOG
 # ==========================
-
 @app.route("/create_blog", methods=["GET", "POST"])
 def create_blog():
 
     if request.method == "POST":
 
-        title = request.form["title"]
-        category = request.form["category"]
-        content = request.form["content"]
+        title = request.form.get("title", "").strip()
+        category = request.form.get("category", "")
+        content = request.form.get("content", "")
 
         filename = ""
 
-        ai_image_url = request.form.get("ai_image_url")
+        # =========================
+        # AI IMAGE
+        # =========================
+
+        ai_image_url = request.form.get("ai_image_url", "")
 
         if ai_image_url:
-            filename = secure_filename(title.replace(" ", "_") + "_ai.jpg")
-            image_data = requests.get(ai_image_url).content
 
-            with open(os.path.join(app.config["UPLOAD_FOLDER"], filename), "wb") as f:
-                   f.write(image_data)
+            try:
+                response = requests.get(ai_image_url, timeout=10)
+
+                if response.status_code == 200:
+
+                    filename = secure_filename(
+                        title.replace(" ", "_") + "_ai.jpg"
+                    )
+
+                    image_path = os.path.join(
+                        app.config["UPLOAD_FOLDER"],
+                        filename
+                    )
+
+                    with open(image_path, "wb") as f:
+                        f.write(response.content)
+
+            except Exception as e:
+                print("AI IMAGE ERROR:", e)
+
+
+        # =========================
+        # USER UPLOADED IMAGE
+        # =========================
 
         if "image" in request.files:
+
             image = request.files.get("image")
 
-            if image and image.filename != "":
+            if image and image.filename:
+
                 filename = secure_filename(image.filename)
-                image.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+
+                image_path = os.path.join(
+                    app.config["UPLOAD_FOLDER"],
+                    filename
+                )
+
+                image.save(image_path)
+
+
+        # =========================
+        # SAVE BLOG
+        # =========================
 
         blog = Blog(
             title=title,

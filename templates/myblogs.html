@@ -202,31 +202,19 @@
                     <div class="blog-card h-100">
 
                         <!-- Image -->
+                        <div class="blog-image-wrapper">
 
-                        <div class="blog-image">
-
-                            {% if blog.ai_image %}
-
-                            <img src="{{ blog.ai_image }}" alt="{{ blog.title }}"
-                                onerror="this.src='/static/images/fallback-cover.jpg';">
-
-                            {% elif blog.image %}
+                            {% if blog.image %}
 
                             <img src="{{ url_for('static', filename='uploads/' + blog.image) }}" alt="{{ blog.title }}"
-                                onerror="this.src='/static/images/fallback-cover.jpg';">
+                                class="blog-cover">
 
                             {% else %}
 
-                            <img src="{{ url_for('static', filename='images/fallback-cover.jpg') }}" alt="Blog Cover">
+                            <img src="{{ url_for('static', filename='images/fallback-cover.jpg') }}" alt="Blog Cover"
+                                class="blog-cover">
 
                             {% endif %}
-
-
-                            <span class="blog-category">
-
-                                {{ blog.category or "General" }}
-
-                            </span>
 
                         </div>
 
