@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <a href="/myblogs" class="btn btn-light rounded-pill mb-4">
+        ← Back to My Blogs
+    </a>
+
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+        <!-- Blog Image -->
+
+        {% if blog.image %}
+
+        <img src="{{ url_for('static', filename='uploads/' + blog.image) }}" class="w-100"
+            style="height:400px; object-fit:cover;" alt="{{ blog.title }}">
+
+        {% else %}
+
+        <img src="{{ url_for('static', filename='images/fallback-cover.jpg') }}" class="w-100"
+            style="height:400px; object-fit:cover;" alt="Blog Cover">
+
+        {% endif %}
+
+
+        <div class="p-4 p-lg-5">
+
+            <!-- Category -->
+
+            <span class="badge bg-primary rounded-pill px-3 py-2">
+                {{ blog.category }}
+            </span>
+
+
+            <!-- Title -->
+
+            <h1 class="fw-bold mt-3">
+                {{ blog.title }}
+            </h1>
+
+
+            <!-- Date -->
+
+            <p class="text-muted">
+                📅 {{ blog.created_at }}
+            </p>
+
+
+            <hr>
+
+
+            <!-- Content -->
+
+            <div class="blog-content mt-4" style="white-space: pre-line; line-height:1.8; font-size:18px;">
+
+                {{ blog.content }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

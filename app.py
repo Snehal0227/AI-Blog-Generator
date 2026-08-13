@@ -364,6 +364,20 @@ def myblogs():
 
 
 # ==========================
+# Blog
+# ==========================
+
+@app.route("/blog/<int:blog_id>")
+def view_blog(blog_id):
+
+    blog = Blog.query.get_or_404(blog_id)
+
+    return render_template(
+        "blog.html",
+        blog=blog
+    )
+
+# ==========================
 # Analytics
 # ==========================
 @app.route("/analytics")
