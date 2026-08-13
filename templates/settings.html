@@ -163,7 +163,6 @@
 
 
                         <!-- Language -->
-
                         <div class="settings-section">
 
                             <label class="form-label fw-bold">
@@ -172,22 +171,23 @@
 
                             <select name="language" class="form-select custom-input">
 
-                                <option value="English">
+                                <option value="English" {% if session.get("language", "English" )=="English" %} selected
+                                    {% endif %}>
                                     English
                                 </option>
 
-                                <option value="Marathi">
+                                <option value="Marathi" {% if session.get("language")=="Marathi" %} selected {% endif
+                                    %}>
                                     Marathi
                                 </option>
 
-                                <option value="Hindi">
+                                <option value="Hindi" {% if session.get("language")=="Hindi" %} selected {% endif %}>
                                     Hindi
                                 </option>
 
                             </select>
 
                         </div>
-
 
                         <!-- Buttons -->
 
