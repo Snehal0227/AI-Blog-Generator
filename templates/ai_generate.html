@@ -8,266 +8,758 @@
 
     {% include "sidebar.html" %}
 
-    <div class="main">
+    <div class="main w-100">
 
-        <div class="topbar">
+        <!-- Header -->
+        <div class="create-navbar">
 
-            <h2>🤖 AI Blog Generator</h2>
+            <div>
+                <span class="small text-muted">
+                    AI Blog Generator
+                </span>
 
-            <button class="btn btn-primary rounded-pill" onclick="window.location.href='/myblogs'">
-                History
-            </button>
+                <h3 class="fw-bold mb-0">
+                    Generate Blog with AI 🤖
+                </h3>
+            </div>
+
+            <a href="/myblogs" class="btn btn-light rounded-pill px-4">
+                📚 History
+            </a>
 
         </div>
 
-        <div class="card border-0 shadow-lg rounded-4 p-4">
 
-            <h4 class="mb-4">
-                Generate a Blog with AI
-            </h4>
+        <div class="create-container">
 
-            <label class="fw-bold mb-2">
-                Blog Topic
-            </label>
+            <!-- Hero -->
+            <div class="create-heading">
 
-            <input type="text" id="blog_topic" class="form-control mb-3"
-                placeholder="Example: Future of Artificial Intelligence">
+                <div class="create-badge">
+                    🤖 AI POWERED
+                </div>
 
-            <label class="fw-bold mb-2">
-                Keywords
-            </label>
+                <h1>
+                    Turn your idea into a blog.
+                </h1>
 
-            <input type="text" id="keywords" class="form-control mb-3" placeholder="AI, Machine Learning, Future">
+                <p>
+                    Enter a topic and let AI create professional,
+                    engaging and SEO-friendly content for you.
+                </p>
 
-            <label class="fw-bold mb-2">
-                Blog Length
-            </label>
+            </div>
 
-            <select id="blog_length" class="form-select mb-4">
-                <option>Short (500 Words)</option>
-                <option>Medium (1000 Words)</option>
-                <option>Long (1500+ Words)</option>
-            </select>
 
-            <button class="btn btn-primary rounded-pill px-4" onclick="generateAI()">
-                🤖 Generate Blog
-            </button>
+            <div class="row g-4">
+
+
+                <!-- LEFT : INPUT -->
+                <div class="col-lg-5">
+
+                    <div class="create-card h-100">
+
+                        <div class="mb-4">
+
+                            <h4 class="fw-bold">
+                                ✨ Blog Details
+                            </h4>
+
+                            <p class="text-muted mb-0">
+                                Tell AI what you want to write about.
+                            </p>
+
+                        </div>
+
+
+                        <!-- Topic -->
+                        <div class="form-section">
+
+                            <label class="form-label fw-semibold">
+                                Blog Topic
+                            </label>
+
+                            <input type="text" id="blog_topic" class="form-control custom-input"
+                                placeholder="Future of Artificial Intelligence">
+
+                        </div>
+
+
+                        <!-- Keywords -->
+                        <div class="form-section">
+
+                            <label class="form-label fw-semibold">
+                                Keywords
+                            </label>
+
+                            <input type="text" id="keywords" class="form-control custom-input"
+                                placeholder="AI, Machine Learning, Future">
+
+                            <small class="text-muted">
+                                Add keywords to improve your content.
+                            </small>
+
+                        </div>
+
+
+                        <!-- Length -->
+                        <div class="form-section">
+
+                            <label class="form-label fw-semibold">
+                                Blog Length
+                            </label>
+
+                            <select id="blog_length" class="form-select custom-input">
+
+                                <option value="Short (500 Words)">
+                                    Short — 500 Words
+                                </option>
+
+                                <option value="Medium (1000 Words)" selected>
+                                    Medium — 1000 Words
+                                </option>
+
+                                <option value="Long (1500 Words)">
+                                    Long — 1500+ Words
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Generate -->
+                        <button id="generateBtn" class="btn btn-primary
+                                   rounded-pill w-100 py-3 mt-3" onclick="generateAI()">
+
+                            🤖 Generate Blog with AI
+
+                        </button>
+
+
+                        <!-- Loading -->
+                        <div id="loading" class="alert alert-primary
+                                   rounded-4 text-center mt-4" style="display:none;">
+
+                            <div id="spinner" class="spinner-border
+                                       spinner-border-sm
+                                       text-primary mb-2">
+                            </div>
+
+                            <div>
+                                🤖 AI is creating your blog...
+                            </div>
+
+                        </div>
+
+
+                        <!-- AI Features -->
+                        <div class="ai-mini-features mt-4">
+
+                            <div>
+                                ✨
+                                <strong>AI Writing</strong>
+                            </div>
+
+                            <div>
+                                🎯
+                                <strong>SEO Friendly</strong>
+                            </div>
+
+                            <div>
+                                ⚡
+                                <strong>Fast Generation</strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RIGHT : RESULT -->
+                <div class="col-lg-7">
+
+                    <div class="create-card">
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-center">
+
+                            <div>
+
+                                <span class="content-tip">
+                                    ✨ AI GENERATED
+                                </span>
+
+                                <h4 class="fw-bold mt-2 mb-1">
+                                    Your Generated Blog
+                                </h4>
+
+                                <p class="text-muted mb-0">
+                                    Review and edit your AI-generated content.
+                                </p>
+
+                            </div>
+
+                            <span id="wordCount" class="badge bg-light text-dark
+                                         rounded-pill px-3 py-2">
+                                0 words
+                            </span>
+
+                        </div>
+
+
+                        <!-- Cover Image -->
+                        <div class="mt-4">
+
+                            <div class="d-flex
+                                        justify-content-between
+                                        align-items-center mb-2">
+
+                                <h6 class="fw-bold mb-0">
+                                    🖼️ AI Cover Image
+                                </h6>
+
+                                <span class="small text-muted">
+                                    Auto Generated
+                                </span>
+
+                            </div>
+
+
+                            <div id="imageBox" class="ai-image-box">
+
+                                <div id="imagePlaceholder">
+
+                                    <div style="font-size:45px;">
+                                        🖼️
+                                    </div>
+
+                                    <p class="text-muted mb-0">
+                                        Your AI cover image will appear here
+                                    </p>
+
+                                </div>
+
+
+                                <img id="ai_image" src="" class="img-fluid rounded-4" style="display:none;
+                                           width:100%;
+                                           max-height:320px;
+                                           object-fit:cover;" alt="AI Cover Image">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Blog Content -->
+                        <div class="mt-4">
+
+                            <label class="form-label fw-semibold">
+                                📝 Blog Content
+                            </label>
+
+                            <textarea id="generated_blog" class="form-control blog-editor" rows="16"
+                                placeholder="Your AI generated blog will appear here..."></textarea>
+
+                        </div>
+
+
+                        <!-- Actions -->
+                        <div class="d-flex
+                                    flex-wrap
+                                    gap-2 mt-4">
+
+                            <button class="btn btn-success
+                                       rounded-pill px-4" onclick="publishBlog()">
+
+                                🚀 Publish
+
+                            </button>
+
+
+                            <button class="btn btn-outline-primary
+                                       rounded-pill px-4" onclick="copyBlog()">
+
+                                📋 Copy
+
+                            </button>
+
+
+                            <button class="btn btn-outline-dark
+                                       rounded-pill px-4" onclick="downloadBlog()">
+
+                                ⬇️ Download
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Bottom Information -->
+
+            <div class="row g-4 mt-1">
+
+                <div class="col-md-4">
+
+                    <div class="info-mini-card">
+
+                        <div class="mini-icon">
+                            💡
+                        </div>
+
+                        <h6 class="fw-bold">
+                            Smart Ideas
+                        </h6>
+
+                        <p class="text-muted small mb-0">
+                            Generate creative content ideas quickly.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="info-mini-card">
+
+                        <div class="mini-icon">
+                            🎯
+                        </div>
+
+                        <h6 class="fw-bold">
+                            SEO Content
+                        </h6>
+
+                        <p class="text-muted small mb-0">
+                            Create structured and search-friendly blogs.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="info-mini-card">
+
+                        <div class="mini-icon">
+                            ⚡
+                        </div>
+
+                        <h6 class="fw-bold">
+                            Save Time
+                        </h6>
+
+                        <p class="text-muted small mb-0">
+                            Generate a complete blog in seconds.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Footer -->
+
+            <div class="text-center text-muted py-4">
+
+                <small>
+                    © 2026 AI Blog Generator | Powered by AI 🤖
+                </small>
+
+            </div>
 
         </div>
 
-        <div class="card border-0 shadow-lg rounded-4 p-4 mt-4">
-
-            <h4>Generated Blog</h4>
-
-            <div id="spinner" class="text-center mb-3" style="display:none;">
-                <div class="spinner-border text-primary" role="status"></div>
-            </div>
-
-            <div id="loading" class="alert alert-info text-center" style="display:none;">
-                🤖 AI is generating your blog...
-            </div>
-
-            <div class="mt-4">
-                <h5>🖼️ AI Cover Image</h5>
-
-                <img id="ai_image" src="" class="img-fluid rounded-4 shadow mt-2"
-                    style="display:none; max-height:300px; object-fit:cover;">
-            </div>
-
-            <textarea id="generated_blog" class="form-control mt-3" rows="12"
-                placeholder="AI generated blog will appear here..."></textarea>
-
-            <div class="mt-4 d-flex gap-3">
-
-                <button class="btn btn-success rounded-pill" onclick="publishBlog()">
-                    Publish
-                </button>
-
-                <button class="btn btn-outline-primary rounded-pill" onclick="copyBlog()">
-                    Copy
-                </button>
-
-                <button class="btn btn-outline-dark rounded-pill" onclick="downloadBlog()">
-                    Download
-                </button>
-
-            </div>
-            <script>
-                async function generateAI() {
-
-                    let title = document.getElementById("blog_topic").value;
-                    let keywords = document.getElementById("keywords").value;
-                    let length = document.getElementById("blog_length").value;
-
-                    if (title == "") {
-                        alert("Please enter blog topic");
-                        return;
-                    }
-
-                    let formData = new FormData();
-
-                    formData.append("title", title);
-                    formData.append("keywords", keywords);
-                    formData.append("length", length);
-
-                    document.getElementById("loading").style.display = "block";
-                    document.getElementById("spinner").style.display = "block";
-
-                    try {
-
-                        let response = await fetch("/generate_ai", {
-                            method: "POST",
-                            body: formData
-                        });
-
-                        console.log("Response status:", response.status);
-
-                        let result = await response.json();
-
-                        console.log("AI Result:", result);
-
-                        // ==========================
-                        // SHOW BLOG CONTENT
-                        // ==========================
-
-                        let textarea = document.getElementById("generated_blog");
-
-                        let text = result.content || "";
-
-                        textarea.value = "";
-
-                        for (let i = 0; i < text.length; i++) {
-
-                            textarea.value += text.charAt(i);
-
-                            await new Promise(
-                                resolve => setTimeout(resolve, 8)
-                            );
-                        }
-
-
-                        // ==========================
-                        // SHOW COVER IMAGE
-                        // ==========================
-
-                        let image = document.getElementById("ai_image");
-
-                        if (result.ai_image) {
-
-                            image.src = result.ai_image;
-                            image.style.display = "block";
-
-                            image.onerror = function () {
-
-                                console.log("Topic image failed.");
-
-                                image.onerror = null;
-
-                                image.src = result.fallback_image;
-                                image.style.display = "block";
-                            };
-                        }
-
-                    } catch (error) {
-
-                        console.error("AI Error:", error);
-
-                        alert("Something went wrong!");
-
-                    } finally {
-
-                        document.getElementById("loading").style.display = "none";
-                        document.getElementById("spinner").style.display = "none";
-                    }
-                }
-            </script>
-
-            <script>
-                async function publishBlog() {
-
-                    let title = document.getElementById("blog_topic").value;
-                    let content = document.getElementById("generated_blog").value;
-
-                    if (title == "" || content == "") {
-                        alert("Generate blog first.");
-                        return;
-                    }
-
-                    let formData = new FormData();
-
-                    formData.append("title", title);
-                    formData.append("category", "AI");
-                    formData.append("content", content);
-
-                    let image = document.getElementById("ai_image");
-
-                    if (
-                        image.src &&
-                        image.style.display !== "none" &&
-                        image.src !== window.location.href
-                    ) {
-                        formData.append("ai_image_url", image.src);
-                    }
-
-                    console.log("Publish clicked");
-                    console.log("Title:", title);
-                    console.log("Content:", content);
-                    console.log("Image:", image.src);
-
-                    let response = await fetch("/create_blog", {
-                        method: "POST",
-                        body: formData
-                    });
-
-                    if (response.redirected) {
-                        window.location.href = response.url;
-                    } else {
-                        console.log("Create Blog response:", await response.text());
-                    }
-                }
-            </script>
-
-            <script>
-
-                function copyBlog() {
-
-                    let text = document.getElementById("generated_blog").value;
-
-                    navigator.clipboard.writeText(text);
-
-                    alert("Blog Copied Successfully");
-                }
-            </script>
-
-            <script>
-
-                function downloadBlog() {
-
-                    let text = document.getElementById("generated_blog").value;
-
-                    if (text == "") {
-                        alert("Generate blog first");
-                        return;
-                    }
-
-                    let blob = new Blob([text], { type: "text/plain" });
-
-                    let link = document.createElement("a");
-
-                    link.href = URL.createObjectURL(blob);
-
-                    link.download = "AI_Blog.txt";
-
-                    link.click();
-                }
-            </script>
-        </div>
     </div>
 
 </div>
 
-</div>
 
-</div>
+<!-- ============================= -->
+<!-- JAVASCRIPT -->
+<!-- ============================= -->
+
+<script>
+
+    async function generateAI() {
+
+        const title =
+            document.getElementById("blog_topic").value.trim();
+
+        const keywords =
+            document.getElementById("keywords").value.trim();
+
+        const length =
+            document.getElementById("blog_length").value;
+
+        const textarea =
+            document.getElementById("generated_blog");
+
+        const button =
+            document.getElementById("generateBtn");
+
+        const loading =
+            document.getElementById("loading");
+
+        const image =
+            document.getElementById("ai_image");
+
+        const placeholder =
+            document.getElementById("imagePlaceholder");
+
+
+        if (title === "") {
+
+            alert("Please enter blog topic.");
+
+            document.getElementById("blog_topic").focus();
+
+            return;
+
+        }
+
+
+        const formData =
+            new FormData();
+
+        formData.append("title", title);
+        formData.append("keywords", keywords);
+        formData.append("length", length);
+
+
+        button.disabled = true;
+        button.innerHTML = "⏳ Generating...";
+
+        loading.style.display = "block";
+
+
+        try {
+
+            const response =
+                await fetch("/generate_ai", {
+
+                    method: "POST",
+                    body: formData
+
+                });
+
+
+            const result =
+                await response.json();
+
+
+            if (result.content) {
+
+                textarea.value = result.content;
+
+                updateWordCount();
+
+
+                textarea.scrollIntoView({
+
+                    behavior: "smooth",
+                    block: "center"
+
+                });
+
+            }
+
+
+            /* AI IMAGE */
+
+            if (result.ai_image) {
+
+                image.src = result.ai_image;
+
+                image.style.display = "block";
+
+                placeholder.style.display = "none";
+
+
+                image.onerror = function () {
+
+                    image.onerror = null;
+
+                    if (result.fallback_image) {
+
+                        image.src =
+                            result.fallback_image;
+
+                    }
+
+                };
+
+            }
+
+
+            if (!result.content) {
+
+                alert(
+                    result.error ||
+                    "Blog generation failed."
+                );
+
+            }
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Something went wrong while generating the blog."
+            );
+
+
+        } finally {
+
+            button.disabled = false;
+
+            button.innerHTML =
+                "🤖 Generate Blog with AI";
+
+            loading.style.display = "none";
+
+        }
+
+    }
+
+
+    /* ==========================
+       WORD COUNT
+    ========================== */
+
+    function updateWordCount() {
+
+        const text =
+            document
+                .getElementById("generated_blog")
+                .value
+                .trim();
+
+        const count =
+            text === ""
+                ? 0
+                : text.split(/\s+/).length;
+
+
+        document.getElementById("wordCount")
+            .innerText = count + " words";
+
+    }
+
+
+    document
+        .getElementById("generated_blog")
+        .addEventListener(
+            "input",
+            updateWordCount
+        );
+
+
+    /* ==========================
+       COPY
+    ========================== */
+
+    function copyBlog() {
+
+        const text =
+            document
+                .getElementById("generated_blog")
+                .value;
+
+
+        if (!text.trim()) {
+
+            alert("Generate blog first.");
+
+            return;
+
+        }
+
+
+        navigator.clipboard
+            .writeText(text)
+            .then(function () {
+
+                alert(
+                    "✅ Blog copied successfully!"
+                );
+
+            });
+
+    }
+
+
+    /* ==========================
+       DOWNLOAD
+    ========================== */
+
+    function downloadBlog() {
+
+        const text =
+            document
+                .getElementById("generated_blog")
+                .value;
+
+
+        if (!text.trim()) {
+
+            alert("Generate blog first.");
+
+            return;
+
+        }
+
+
+        const blob =
+            new Blob(
+                [text],
+                { type: "text/plain" }
+            );
+
+
+        const link =
+            document.createElement("a");
+
+
+        link.href =
+            URL.createObjectURL(blob);
+
+
+        link.download =
+            "AI_Blog.txt";
+
+
+        link.click();
+
+
+        URL.revokeObjectURL(link.href);
+
+    }
+
+
+    /* ==========================
+       PUBLISH
+    ========================== */
+
+    async function publishBlog() {
+
+        const title =
+            document
+                .getElementById("blog_topic")
+                .value.trim();
+
+
+        const content =
+            document
+                .getElementById("generated_blog")
+                .value.trim();
+
+
+        if (!title || !content) {
+
+            alert("Generate blog first.");
+
+            return;
+
+        }
+
+
+        const formData =
+            new FormData();
+
+
+        formData.append(
+            "title",
+            title
+        );
+
+
+        formData.append(
+            "category",
+            "AI"
+        );
+
+
+        formData.append(
+            "content",
+            content
+        );
+
+
+        const image =
+            document.getElementById("ai_image");
+
+
+        if (
+            image.src &&
+            image.style.display !== "none"
+        ) {
+
+            formData.append(
+                "ai_image_url",
+                image.src
+            );
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/create_blog",
+                    {
+
+                        method: "POST",
+                        body: formData
+
+                    }
+                );
+
+
+            if (response.redirected) {
+
+                window.location.href =
+                    response.url;
+
+            } else {
+
+                alert(
+                    "Blog published successfully!"
+                );
+
+            }
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Could not publish blog."
+            );
+
+        }
+
+    }
+
+</script>
 
 {% endblock %}

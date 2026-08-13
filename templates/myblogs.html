@@ -8,97 +8,501 @@
 
     {% include "sidebar.html" %}
 
-    <div class="main">
+    <div class="main w-100">
 
-        <div class="topbar">
+        <!-- Header -->
+        <div class="create-navbar">
 
-            <h2>📚 My Blogs</h2>
+            <div>
+                <span class="small text-muted">
+                    AI Blog Generator
+                </span>
 
-            <form method="GET" action="/myblogs" class="d-flex">
+                <h3 class="fw-bold mb-0">
+                    My Blogs 📝
+                </h3>
+            </div>
 
-                <input type="text" name="search" class="form-control" placeholder="Search Blog..."
-                    value="{{ search if search else '' }}">
-
-                <button class="btn btn-primary ms-2">
-                    🔍 Search
-                </button>
-
-            </form>
+            <a href="/create_blog" class="btn btn-primary rounded-pill px-4">
+                ✍️ Create New Blog
+            </a>
 
         </div>
 
-        <h5 class="mb-4">
-            Total Blogs : {{blogs | length}}
-        </h5>
 
-        <div class="row">
+        <div class="create-container">
 
-            {% if blogs | length == 0 %}
-            <div class="alert alert-warning text-center">
-                No Blog Found
+            <!-- Page Heading -->
+            <div class="create-heading">
+
+                <div class="create-badge">
+                    📚 Your Content
+                </div>
+
+                <h1>
+                    Manage your blogs.
+                </h1>
+
+                <p>
+                    View, edit and manage all your created blogs
+                    from one place.
+                </p>
+
             </div>
-            {% endif %}
 
-            {% for blog in blogs %}
 
-            <div class="col-lg-4 mb-4">
+            <!-- Statistics -->
+            <div class="row g-4 mb-4">
 
-                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="col-md-4">
 
-                    {% if blog.image %}
-                    <img src="{{ url_for('static', filename='uploads/' + blog.image) }}" class="card-img-top"
-                        style="height:220px; object-fit:cover;">
-                    {% else %}
-                    <img src="{{ url_for('static', filename='images/user.webp') }}" class="card-img-top"
-                        style="height:220px; object-fit:cover;">
-                    {% endif %}
+                    <div class="analytics-card">
 
-                    <div class="card-body">
-
-                        <h5 class="fw-bold">{{ blog.title }}</h5>
-
-                        <p class="text-muted mb-2">
-                            📂 {{ blog.category }}
-                        </p>
-
-                        <p class="text-muted mb-2">
-                            📅 {{ blog.created_at.strftime('%d-%m-%Y') }}
-                        </p>
-
-                        <p class="text-muted">{{ blog.category }}</p>
-
-                        <p>
-                            {{ blog.content[:120] }}...
-                        </p>
-
-                        <div class="d-flex gap-2 mt-3">
-
-                            <a href="/view_blog/{{ blog.id }}" class="btn btn-info flex-fill">
-                                👁 View
-                            </a>
-
-                            <a href="/edit_blog/{{ blog.id }}" class="btn btn-warning flex-fill">
-                                ✏ Edit
-                            </a>
-
-                            <a href="/delete_blog/{{ blog.id }}" class="btn btn-danger flex-fill"
-                                onclick="return confirm('Are you sure you want to delete this blog?')">
-                                🗑 Delete
-                            </a>
-
+                        <div class="analytics-icon blue">
+                            📝
                         </div>
+
+                        <p class="text-muted mb-1">
+                            Total Blogs
+                        </p>
+
+                        <h2 class="fw-bold">
+                            {{ blogs|length }}
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="analytics-card">
+
+                        <div class="analytics-icon purple">
+                            🤖
+                        </div>
+
+                        <p class="text-muted mb-1">
+                            AI Content
+                        </p>
+
+                        <h2 class="fw-bold">
+                            AI
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="analytics-card">
+
+                        <div class="analytics-icon green">
+                            🚀
+                        </div>
+
+                        <p class="text-muted mb-1">
+                            Status
+                        </p>
+
+                        <h2 class="fw-bold">
+                            Active
+                        </h2>
+
                     </div>
 
                 </div>
 
             </div>
 
-            {% endfor %}
+
+            <!-- Search + Filter -->
+            <div class="create-card mb-4">
+
+                <div class="row g-3 align-items-center">
+
+                    <div class="col-lg-7">
+
+                        <div class="input-group">
+
+                            <span class="input-group-text bg-white">
+                                🔍
+                            </span>
+
+                            <input type="text" id="blogSearch" class="form-control" placeholder="Search your blogs...">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-3">
+
+                        <select id="categoryFilter" class="form-select">
+
+                            <option value="all">
+                                All Categories
+                            </option>
+
+                            <option value="AI">
+                                🤖 AI
+                            </option>
+
+                            <option value="Technology">
+                                💻 Technology
+                            </option>
+
+                            <option value="Programming">
+                                👩‍💻 Programming
+                            </option>
+
+                            <option value="Education">
+                                📚 Education
+                            </option>
+
+                            <option value="Business">
+                                💼 Business
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="col-lg-2">
+
+                        <a href="/create_blog" class="btn btn-primary
+                                   rounded-pill w-100">
+
+                            + New Blog
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Blogs -->
+            {% if blogs %}
+
+            <div class="row g-4" id="blogsContainer">
+
+                {% for blog in blogs %}
+
+                <div class="col-xl-4 col-lg-6 blog-item" data-title="{{ blog.title|lower }}"
+                    data-category="{{ blog.category|lower if blog.category else '' }}">
+
+
+                    <div class="blog-card h-100">
+
+                        <!-- Image -->
+
+                        <div class="blog-image">
+
+                            {% if blog.ai_image %}
+
+                            <img src="{{ blog.ai_image }}" alt="{{ blog.title }}"
+                                onerror="this.src='/static/images/fallback-cover.jpg';">
+
+                            {% elif blog.image %}
+
+                            <img src="{{ url_for('static', filename='uploads/' + blog.image) }}" alt="{{ blog.title }}"
+                                onerror="this.src='/static/images/fallback-cover.jpg';">
+
+                            {% else %}
+
+                            <img src="{{ url_for('static', filename='images/fallback-cover.jpg') }}" alt="Blog Cover">
+
+                            {% endif %}
+
+
+                            <span class="blog-category">
+
+                                {{ blog.category or "General" }}
+
+                            </span>
+
+                        </div>
+
+
+                        <!-- Content -->
+
+                        <div class="p-4">
+
+                            <div class="d-flex
+                                        justify-content-between
+                                        align-items-center
+                                        mb-2">
+
+                                <small class="text-muted">
+
+                                    📅
+                                    {% if blog.created_at %}
+                                    {{ blog.created_at.strftime('%d %b %Y') }}
+                                    {% else %}
+                                    Recently
+                                    {% endif %}
+
+                                </small>
+
+                                <span class="badge
+                                             bg-success-subtle
+                                             text-success
+                                             rounded-pill">
+
+                                    Published
+
+                                </span>
+
+                            </div>
+
+
+                            <h4 class="fw-bold blog-title">
+
+                                {{ blog.title }}
+
+                            </h4>
+
+
+                            <p class="text-muted blog-description">
+
+                                {{ blog.content[:140] if blog.content else
+                                "No content available." }}
+
+                                {% if blog.content and blog.content|length > 140 %}
+                                ...
+                                {% endif %}
+
+                            </p>
+
+
+                            <!-- Stats -->
+
+                            <div class="blog-stats">
+
+                                <span>
+                                    👁️
+                                    {{ blog.views or 0 }}
+                                    Views
+                                </span>
+
+                                <span>
+                                    📝 Blog
+                                </span>
+
+                            </div>
+
+
+                            <!-- Actions -->
+
+                            <div class="d-flex gap-2 mt-3">
+
+                                <a href="/blog/{{ blog.id }}" class="btn btn-primary
+                                           rounded-pill flex-grow-1">
+
+                                    👁️ View
+
+                                </a>
+
+
+                                <a href="/edit_blog/{{ blog.id }}" class="btn btn-outline-primary
+                                           rounded-pill">
+
+                                    ✏️
+
+                                </a>
+
+
+                                <a href="/delete_blog/{{ blog.id }}" class="btn btn-outline-danger
+                                           rounded-pill"
+                                    onclick="return confirm('Are you sure you want to delete this blog?');">
+
+                                    🗑️
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- No Search Result -->
+
+            <div id="noResults" class="create-card text-center py-5 mt-4" style="display:none;">
+
+                <div style="font-size:55px;">
+                    🔍
+                </div>
+
+                <h4 class="fw-bold mt-3">
+                    No blogs found
+                </h4>
+
+                <p class="text-muted">
+                    Try another search or category.
+                </p>
+
+            </div>
+
+
+            {% else %}
+
+            <!-- Empty State -->
+
+            <div class="create-card text-center py-5">
+
+                <div style="font-size:70px;">
+                    📝
+                </div>
+
+                <h3 class="fw-bold mt-3">
+                    No Blogs Yet
+                </h3>
+
+                <p class="text-muted">
+                    You haven't created any blogs yet.
+                    Start creating your first AI-powered blog!
+                </p>
+
+                <a href="/create_blog" class="btn btn-primary
+                           rounded-pill px-4 mt-2">
+
+                    ✨ Create Your First Blog
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- Footer -->
+
+            <div class="text-center text-muted py-4">
+
+                <small>
+                    © 2026 AI Blog Generator | My Blogs
+                </small>
+
+            </div>
 
         </div>
 
     </div>
 
 </div>
+
+
+<!-- ========================== -->
+<!-- SEARCH + FILTER SCRIPT -->
+<!-- ========================== -->
+
+<script>
+
+    const searchInput =
+        document.getElementById("blogSearch");
+
+    const categoryFilter =
+        document.getElementById("categoryFilter");
+
+    const blogItems =
+        document.querySelectorAll(".blog-item");
+
+    const noResults =
+        document.getElementById("noResults");
+
+
+    function filterBlogs() {
+
+        const search =
+            searchInput
+                ? searchInput.value.toLowerCase().trim()
+                : "";
+
+        const category =
+            categoryFilter
+                ? categoryFilter.value.toLowerCase()
+                : "all";
+
+
+        let visible = 0;
+
+
+        blogItems.forEach(function (blog) {
+
+            const title =
+                blog.dataset.title || "";
+
+            const blogCategory =
+                blog.dataset.category || "";
+
+
+            const searchMatch =
+                title.includes(search);
+
+            const categoryMatch =
+                category === "all" ||
+                blogCategory === category;
+
+
+            if (searchMatch && categoryMatch) {
+
+                blog.style.display = "";
+
+                visible++;
+
+            } else {
+
+                blog.style.display = "none";
+
+            }
+
+        });
+
+
+        if (noResults) {
+
+            noResults.style.display =
+                visible === 0 ? "block" : "none";
+
+        }
+
+    }
+
+
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            "input",
+            filterBlogs
+        );
+
+    }
+
+
+    if (categoryFilter) {
+
+        categoryFilter.addEventListener(
+            "change",
+            filterBlogs
+        );
+
+    }
+
+</script>
 
 {% endblock %}
