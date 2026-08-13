@@ -400,6 +400,64 @@
         color: #777;
         margin-top: 3px;
     }
+
+
+    /* =========================
+   DARK MODE
+========================= */
+
+    body.dark-mode {
+        background: #121212 !important;
+        color: #f5f5f5 !important;
+    }
+
+    body.dark-mode .main {
+        background: #121212 !important;
+    }
+
+    body.dark-mode .card {
+        background: #1e1e1e !important;
+        color: #ffffff !important;
+    }
+
+    body.dark-mode .topbar,
+    body.dark-mode h1,
+    body.dark-mode h2,
+    body.dark-mode h3,
+    body.dark-mode h4,
+    body.dark-mode h5,
+    body.dark-mode h6,
+    body.dark-mode label {
+        color: #ffffff !important;
+    }
+
+    body.dark-mode .text-muted {
+        color: #bdbdbd !important;
+    }
+
+    body.dark-mode .form-control,
+    body.dark-mode .form-select {
+        background-color: #2b2b2b !important;
+        color: #ffffff !important;
+        border-color: #555 !important;
+    }
+
+    body.dark-mode .form-control::placeholder {
+        color: #aaa !important;
+    }
+
+    body.dark-mode .settings-info-card {
+        background: #1e1e1e !important;
+        color: #ffffff !important;
+    }
+
+    body.dark-mode .setting-feature {
+        background: #2b2b2b !important;
+    }
+
+    body.dark-mode hr {
+        border-color: #555 !important;
+    }
 </style>
 
 
@@ -484,6 +542,46 @@
 
     }
 
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const darkModeSwitch =
+            document.getElementById("darkModeSwitch");
+
+        if (!darkModeSwitch) {
+            return;
+        }
+
+        // Previous setting check
+        if (localStorage.getItem("darkMode") === "on") {
+
+            document.body.classList.add("dark-mode");
+
+            darkModeSwitch.checked = true;
+        }
+
+
+        // Switch change
+        darkModeSwitch.addEventListener("change", function () {
+
+            if (this.checked) {
+
+                document.body.classList.add("dark-mode");
+
+                localStorage.setItem("darkMode", "on");
+
+            } else {
+
+                document.body.classList.remove("dark-mode");
+
+                localStorage.setItem("darkMode", "off");
+            }
+
+        });
+
+    });
 </script>
 
 {% endblock %}
