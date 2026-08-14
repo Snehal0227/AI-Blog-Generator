@@ -406,60 +406,32 @@ def view_blog(blog_id):
 
 # ==========================
 # Analytics
-# ==========================
-@app.route("/analytics")
+# ==========================@app.route("/analytics")
 def analytics():
 
-    # Total blogs
     total_blogs = Blog.query.count()
 
-    # AI generated blogs
-    ai_blogs = Blog.query.filter(
-        Blog.ai_image.isnot(None)
-    ).count()
+    ai_blogs = Blog.query.filter_by(category="AI").count()
 
-    # Categories
     categories = db.session.query(
         Blog.category
-    ).filter(
-        Blog.category.isnot(None),
-        Blog.category != ""
     ).distinct().count()
 
-    # Total views
-    total_views = db.session.query(
-        db.func.coalesce(
-            db.func.sum(Blog.views), 0
+    category_data = (
+        db.session.query(
+            Blog.category,
+            db.func.count(Blog.id)
         )
-    ).scalar()
-
-    # Category-wise blogs
-    category_data = db.session.query(
-        Blog.category,
-        db.func.count(Blog.id)
-    ).group_by(
-        Blog.category
-    ).all()
-
-    # Recent blogs
-    recent_blogs = Blog.query.order_by(
-        Blog.created_at.desc()
-    ).limit(5).all()
-
-    # Most viewed blogs
-    top_blogs = Blog.query.order_by(
-        Blog.views.desc()
-    ).limit(5).all()
+        .group_by(Blog.category)
+        .all()
+    )
 
     return render_template(
         "analytics.html",
         total_blogs=total_blogs,
         ai_blogs=ai_blogs,
         categories=categories,
-        total_views=total_views,
-        category_data=category_data,
-        recent_blogs=recent_blogs,
-        top_blogs=top_blogs
+        category_data=category_data
     )
 # ==========================
 # AI GENERATE
