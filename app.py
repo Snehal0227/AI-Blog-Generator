@@ -184,10 +184,6 @@ def dashboard():
         Blog.category.isnot(None)
     ).distinct().count()
 
-    # Total views
-    total_views = db.session.query(
-        db.func.coalesce(db.func.sum(Blog.views), 0)
-    ).scalar()
 
     # Recent 5 blogs
     recent_blogs = Blog.query.order_by(
@@ -199,7 +195,6 @@ def dashboard():
         total_blogs=total_blogs,
         ai_blogs=ai_blogs,
         categories=categories,
-        total_views=total_views,
         recent_blogs=recent_blogs
     )
 
