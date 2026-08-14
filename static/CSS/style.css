@@ -2618,3 +2618,63 @@ body {
     object-fit: cover;
     display: block;
 }
+
+/* =========================
+   SIDEBAR TOGGLE
+========================= */
+
+.sidebar-toggle {
+    display: none;
+
+    position: fixed;
+    top: 18px;
+    left: 18px;
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #4f46e5;
+    color: white;
+
+    font-size: 23px;
+
+    cursor: pointer;
+
+    z-index: 10000;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.18);
+}
+
+
+/* Tablet + Mobile */
+
+@media (max-width: 991px) {
+
+    .sidebar-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sidebar {
+        position: fixed;
+
+        top: 0;
+        left: -280px;
+
+        width: 260px;
+        height: 100vh;
+
+        z-index: 9999;
+
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+}
