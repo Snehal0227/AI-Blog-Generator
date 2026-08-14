@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, flash, url_for, ses
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 from urllib.parse import quote
+from models import db, User, Blog
 import os
 from dotenv import load_dotenv
 import requests
@@ -409,32 +410,57 @@ def view_blog(blog_id):
 @app.route("/analytics")
 def analytics():
 
+    # Total blogs
     total_blogs = Blog.query.count()
 
-    ai_blogs = Blog.query.filter_by(category="AI").count()
+    # AI generated blogs
+    ai_blogs = Blog.query.filter(
+        Blog.ai_image.isnot(None)
+    ).count()
 
+    # Categories
     categories = db.session.query(
         Blog.category
+    ).filter(
+        Blog.category.isnot(None),
+        Blog.category != ""
     ).distinct().count()
 
-    category_data = (
-        db.session.query(
-            Blog.category,
-            db.func.count(Blog.id)
+    # Total views
+    total_views = db.session.query(
+        db.func.coalesce(
+            db.func.sum(Blog.views), 0
         )
-        .group_by(Blog.category)
-        .all()
-    )
+    ).scalar()
+
+    # Category-wise blogs
+    category_data = db.session.query(
+        Blog.category,
+        db.func.count(Blog.id)
+    ).group_by(
+        Blog.category
+    ).all()
+
+    # Recent blogs
+    recent_blogs = Blog.query.order_by(
+        Blog.created_at.desc()
+    ).limit(5).all()
+
+    # Most viewed blogs
+    top_blogs = Blog.query.order_by(
+        Blog.views.desc()
+    ).limit(5).all()
 
     return render_template(
         "analytics.html",
         total_blogs=total_blogs,
         ai_blogs=ai_blogs,
         categories=categories,
-        category_data=category_data
+        total_views=total_views,
+        category_data=category_data,
+        recent_blogs=recent_blogs,
+        top_blogs=top_blogs
     )
-
-
 # ==========================
 # AI GENERATE
 # ==========================
