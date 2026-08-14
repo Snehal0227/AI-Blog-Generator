@@ -167,29 +167,36 @@ def register():
 # ==========================
 # DASHBOARD
 # ==========================
+# ==========================
+# DASHBOARD
+# ==========================
 
 @app.route("/dashboard")
 def dashboard():
 
-    # Total Blogs
     total_blogs = Blog.query.count()
 
-    # AI Generated Blogs
-    ai_blogs = Blog.query.filter_by(category="AI").count()
+    ai_blogs = Blog.query.filter(
+        Blog.ai_image.isnot(None),
+        Blog.ai_image != ""
+    ).count()
 
-    # सध्या तयार झालेले blogs
-    published_blogs = Blog.query.count()
+    categories = db.session.query(
+        Blog.category
+    ).distinct().count()
 
-    # Status field नसल्यामुळे सध्या 0
-    drafts = 0
+    recent_blogs = Blog.query.order_by(
+        Blog.id.desc()
+    ).limit(5).all()
 
     return render_template(
         "dashboard.html",
         total_blogs=total_blogs,
-        published_blogs=published_blogs,
-        drafts=drafts,
-        ai_blogs=ai_blogs
+        ai_blogs=ai_blogs,
+        categories=categories,
+        recent_blogs=recent_blogs
     )
+
 
 @app.route("/generate_ai", methods=["POST"])
 def generate_ai():
