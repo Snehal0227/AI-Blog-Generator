@@ -406,7 +406,8 @@ def view_blog(blog_id):
 
 # ==========================
 # Analytics
-# ==========================@app.route("/analytics")
+# ==========================
+@app.route("/analytics")
 def analytics():
 
     total_blogs = Blog.query.count()
