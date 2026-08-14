@@ -311,73 +311,72 @@
                         </tr>
 
                     </thead>
-
                     <tbody>
 
+                        {% for blog in recent_blogs %}
+
                         <tr>
 
                             <td>
+
                                 <div class="blog-title">
-                                    <span class="blog-mini-icon">🤖</span>
-                                    Future of Artificial Intelligence
+
+                                    {% if blog.ai_image %}
+                                    <img src="{{ url_for('static', filename='uploads/' + blog.ai_image) }}"
+                                        class="blog-mini-image" alt="Blog">
+                                    {% else %}
+                                    <span class="blog-mini-icon">📝</span>
+                                    {% endif %}
+
+                                    {{ blog.title }}
+
                                 </div>
+
                             </td>
 
-                            <td>Technology</td>
+                            <td>
+                                {{ blog.category }}
+                            </td>
 
                             <td>
+
+                                {% if blog.category == "AI" %}
+
                                 <span class="status published">
-                                    Published
+                                    AI Generated
                                 </span>
+
+                                {% else %}
+
+                                <span class="status published">
+                                    Created
+                                </span>
+
+                                {% endif %}
+
                             </td>
 
-                            <td>31 Jul</td>
+                            <td>
+                                <a href="{{ url_for('view_blog', blog_id=blog.id) }}">
+                                    View →
+                                </a>
+                            </td>
 
                         </tr>
 
+                        {% else %}
 
                         <tr>
 
-                            <td>
-                                <div class="blog-title">
-                                    <span class="blog-mini-icon">🐍</span>
-                                    Top Python Libraries
-                                </div>
+                            <td colspan="4" class="text-center">
+
+                                📝 No blogs created yet.
+
                             </td>
-
-                            <td>Programming</td>
-
-                            <td>
-                                <span class="status draft">
-                                    Draft
-                                </span>
-                            </td>
-
-                            <td>29 Jul</td>
 
                         </tr>
 
-
-                        <tr>
-
-                            <td>
-                                <div class="blog-title">
-                                    <span class="blog-mini-icon">🔥</span>
-                                    Flask Complete Guide
-                                </div>
-                            </td>
-
-                            <td>Python</td>
-
-                            <td>
-                                <span class="status scheduled">
-                                    Scheduled
-                                </span>
-                            </td>
-
-                            <td>27 Jul</td>
-
-                        </tr>
+                        {% endfor %}
 
                     </tbody>
 
