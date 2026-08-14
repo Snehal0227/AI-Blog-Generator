@@ -164,7 +164,6 @@ def register():
 
     return render_template("register.html")
 
-
 # ==========================
 # DASHBOARD
 # ==========================
@@ -172,19 +171,27 @@ def register():
 @app.route("/dashboard")
 def dashboard():
 
+    # Total blogs
     total_blogs = Blog.query.count()
 
-    ai_blogs = Blog.query.filter(
-        Blog.ai_image.isnot(None),
-        Blog.ai_image != ""
-    ).count()
+    # AI generated blogs
+    ai_blogs = Blog.query.filter_by(category="AI").count()
 
+    # Total categories
     categories = db.session.query(
         Blog.category
+    ).filter(
+        Blog.category.isnot(None)
     ).distinct().count()
 
+    # Total views
+    total_views = db.session.query(
+        db.func.coalesce(db.func.sum(Blog.views), 0)
+    ).scalar()
+
+    # Recent 5 blogs
     recent_blogs = Blog.query.order_by(
-        Blog.id.desc()
+        Blog.created_at.desc()
     ).limit(5).all()
 
     return render_template(
@@ -192,6 +199,7 @@ def dashboard():
         total_blogs=total_blogs,
         ai_blogs=ai_blogs,
         categories=categories,
+        total_views=total_views,
         recent_blogs=recent_blogs
     )
 

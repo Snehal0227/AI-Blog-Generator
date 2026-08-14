@@ -312,48 +312,42 @@
 
                     </thead>
                     <tbody>
-
                         {% for blog in recent_blogs %}
 
                         <tr>
 
                             <td>
-
                                 <div class="blog-title">
 
                                     {% if blog.ai_image %}
                                     <img src="{{ url_for('static', filename='uploads/' + blog.ai_image) }}"
-                                        class="blog-mini-image" alt="Blog">
+                                        class="blog-mini-image" alt="Blog Image">
+
+                                    {% elif blog.image %}
+                                    <img src="{{ url_for('static', filename='uploads/' + blog.image) }}"
+                                        class="blog-mini-image" alt="Blog Image">
+
                                     {% else %}
                                     <span class="blog-mini-icon">📝</span>
                                     {% endif %}
 
-                                    {{ blog.title }}
+                                    <span>{{ blog.title }}</span>
 
                                 </div>
-
                             </td>
 
-                            <td>
-                                {{ blog.category }}
-                            </td>
+                            <td>{{ blog.category }}</td>
 
                             <td>
-
                                 {% if blog.category == "AI" %}
-
                                 <span class="status published">
                                     AI Generated
                                 </span>
-
                                 {% else %}
-
                                 <span class="status published">
-                                    Created
+                                    Blog
                                 </span>
-
                                 {% endif %}
-
                             </td>
 
                             <td>
@@ -367,17 +361,12 @@
                         {% else %}
 
                         <tr>
-
                             <td colspan="4" class="text-center">
-
                                 📝 No blogs created yet.
-
                             </td>
-
                         </tr>
 
                         {% endfor %}
-
                     </tbody>
 
                 </table>
@@ -1321,6 +1310,19 @@
 
     .dashboard-table td {
         font-size: 14px;
+    }
+
+    .blog-mini-image {
+        width: 70px;
+        height: 55px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .blog-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
 </style>
 
