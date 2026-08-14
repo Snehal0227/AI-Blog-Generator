@@ -86,6 +86,32 @@
         }
     </style>
 
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-light: #eef2ff;
+        }
+
+        /* Main theme */
+
+        .btn-primary {
+            background-color: var(--primary-color) !important;
+            border-color: var(--primary-color) !important;
+        }
+
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+
+        a {
+            --link-color: var(--primary-color);
+        }
+    </style>
+
 </head>
 
 <body>
@@ -193,6 +219,98 @@
             }
 
         });
+
+    </script>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const savedTheme =
+                localStorage.getItem("themeColor") || "blue";
+
+            applyTheme(savedTheme);
+
+        });
+
+
+        function applyTheme(theme) {
+
+            const root = document.documentElement;
+
+            if (theme === "purple") {
+
+                root.style.setProperty(
+                    "--primary-color",
+                    "#9333ea"
+                );
+
+                root.style.setProperty(
+                    "--primary-light",
+                    "#f3e8ff"
+                );
+
+            }
+
+            else if (theme === "green") {
+
+                root.style.setProperty(
+                    "--primary-color",
+                    "#16a34a"
+                );
+
+                root.style.setProperty(
+                    "--primary-light",
+                    "#dcfce7"
+                );
+
+            }
+
+            else if (theme === "orange") {
+
+                root.style.setProperty(
+                    "--primary-color",
+                    "#f97316"
+                );
+
+                root.style.setProperty(
+                    "--primary-light",
+                    "#ffedd5"
+                );
+
+            }
+
+            else {
+
+                root.style.setProperty(
+                    "--primary-color",
+                    "#4f46e5"
+                );
+
+                root.style.setProperty(
+                    "--primary-light",
+                    "#eef2ff"
+                );
+
+            }
+
+            localStorage.setItem("themeColor", theme);
+        }
+
+
+        document.querySelectorAll(".theme-btn")
+            .forEach(function (button) {
+
+                button.addEventListener("click", function () {
+
+                    const theme =
+                        this.getAttribute("data-theme");
+
+                    applyTheme(theme);
+
+                });
+
+            });
 
     </script>
 

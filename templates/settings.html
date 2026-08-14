@@ -158,6 +158,38 @@
 
                         </div>
 
+                        <!-- Theme Color -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-bold">
+                                🎨 Theme Color
+                            </label>
+
+                            <p class="text-muted small">
+                                Choose your website accent color.
+                            </p>
+
+                            <div class="theme-colors">
+
+                                <button type="button" class="theme-btn theme-blue" data-theme="blue" title="Blue">
+                                </button>
+
+                                <button type="button" class="theme-btn theme-purple" data-theme="purple" title="Purple">
+                                </button>
+
+                                <button type="button" class="theme-btn theme-green" data-theme="green" title="Green">
+                                </button>
+
+                                <button type="button" class="theme-btn theme-orange" data-theme="orange" title="Orange">
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+
 
                         <hr>
 
@@ -583,5 +615,43 @@
 
     });
 </script>
+
+<style>
+    .theme-colors {
+        display: flex;
+        gap: 12px;
+        margin-top: 10px;
+    }
+
+    .theme-btn {
+        width: 42px;
+        height: 42px;
+        border: 3px solid white;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: .25s;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, .15);
+    }
+
+    .theme-btn:hover {
+        transform: scale(1.12);
+    }
+
+    .theme-blue {
+        background: #4f46e5;
+    }
+
+    .theme-purple {
+        background: #9333ea;
+    }
+
+    .theme-green {
+        background: #16a34a;
+    }
+
+    .theme-orange {
+        background: #f97316;
+    }
+</style>
 
 {% endblock %}
