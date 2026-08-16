@@ -3,15 +3,17 @@ from flask import Flask, render_template, request, redirect, flash, url_for, ses
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 from urllib.parse import quote
-from models import db, User, Blog
 import os
 from dotenv import load_dotenv
 import requests
 
 load_dotenv()
 
-
 app = Flask(__name__)
+
+# ==========================
+# APP CONFIG
+# ==========================
 
 app.config["SECRET_KEY"] = "ai_blog_generator_secret_key"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog.db"
@@ -19,9 +21,17 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
+# ==========================
+# GROQ
+# ==========================
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+client = Groq(
+    api_key=os.getenv("GROQ_API_KEY")
+)
 
+# ==========================
+# UPLOAD FOLDER
+# ==========================
 
 UPLOAD_FOLDER = "static/uploads"
 
@@ -36,50 +46,104 @@ if not os.path.exists(UPLOAD_FOLDER):
 # ==========================
 
 class User(db.Model):
+
     __tablename__ = "users"
 
-    id = db.Column(db.Integer, primary_key=True)
-    fullname = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False)
+    id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
+
+    fullname = db.Column(
+        db.String(100),
+        nullable=False
+    )
+
+    email = db.Column(
+        db.String(120),
+        unique=True,
+        nullable=False
+    )
+
+    password = db.Column(
+        db.String(200),
+        nullable=False
+    )
+
 
 class Blog(db.Model):
+
     __tablename__ = "blogs"
 
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200), nullable=False)
-    category = db.Column(db.String(100))
-    content = db.Column(db.Text)
+    id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
 
-    image = db.Column(db.String(255))
-    ai_image = db.Column(db.String(255))
+    title = db.Column(
+        db.String(200),
+        nullable=False
+    )
 
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    category = db.Column(
+        db.String(100)
+    )
 
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    content = db.Column(
+        db.Text
+    )
+
+    image = db.Column(
+        db.String(255)
+    )
+
+    ai_image = db.Column(
+        db.String(255)
+    )
+
+    created_at = db.Column(
+        db.DateTime,
+        server_default=db.func.now()
+    )
+
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey("users.id")
+    )
+
+
 # ==========================
 # HOME
 # ==========================
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+
+    return render_template(
+        "index.html"
+    )
 
 
 # ==========================
-# Feature
+# FEATURES
 # ==========================
-
 
 @app.route("/features")
 def features():
-    return render_template("features.html")
+
+    return render_template(
+        "features.html"
+    )
 
 
 # ==========================
-# Contact
+# CONTACT
 # ==========================
-@app.route("/contact", methods=["GET", "POST"])
+
+@app.route(
+    "/contact",
+    methods=["GET", "POST"]
+)
 def contact():
 
     if request.method == "POST":
@@ -99,13 +163,19 @@ def contact():
             success="Your message has been sent successfully! 😊"
         )
 
-    return render_template("contact.html")
+    return render_template(
+        "contact.html"
+    )
+
 
 # ==========================
 # LOGIN
 # ==========================
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route(
+    "/login",
+    methods=["GET", "POST"]
+)
 def login():
 
     if request.method == "POST":
@@ -119,37 +189,79 @@ def login():
         ).first()
 
         if user:
-            flash("Login Successful")
-            return redirect("/dashboard")
-        else:
-            flash("Invalid Email or Password")
 
-    return render_template("login.html")
+            session["user_id"] = user.id
+
+            flash(
+                "Login Successful"
+            )
+
+            return redirect(
+                "/dashboard"
+            )
+
+        else:
+
+            flash(
+                "Invalid Email or Password"
+            )
+
+    return render_template(
+        "login.html"
+    )
 
 
 # ==========================
 # REGISTER
 # ==========================
 
-@app.route("/register", methods=["GET", "POST"])
+@app.route(
+    "/register",
+    methods=["GET", "POST"]
+)
 def register():
 
     if request.method == "POST":
 
-        fullname = request.form.get("fullname")
-        email = request.form.get("email")
-        password = request.form.get("password")
-        confirm_password = request.form.get("confirm_password")
+        fullname = request.form.get(
+            "fullname"
+        )
+
+        email = request.form.get(
+            "email"
+        )
+
+        password = request.form.get(
+            "password"
+        )
+
+        confirm_password = request.form.get(
+            "confirm_password"
+        )
 
         if password != confirm_password:
-            flash("Password and Confirm Password do not match")
-            return redirect("/register")
 
-        check_user = User.query.filter_by(email=email).first()
+            flash(
+                "Password and Confirm Password do not match"
+            )
+
+            return redirect(
+                "/register"
+            )
+
+        check_user = User.query.filter_by(
+            email=email
+        ).first()
 
         if check_user:
-            flash("Email already exists")
-            return redirect("/register")
+
+            flash(
+                "Email already exists"
+            )
+
+            return redirect(
+                "/register"
+            )
 
         user = User(
             fullname=fullname,
@@ -160,10 +272,18 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        flash("Registration Successful")
-        return redirect("/login")
+        flash(
+            "Registration Successful"
+        )
 
-    return render_template("register.html")
+        return redirect(
+            "/login"
+        )
+
+    return render_template(
+        "register.html"
+    )
+
 
 # ==========================
 # DASHBOARD
@@ -172,21 +292,19 @@ def register():
 @app.route("/dashboard")
 def dashboard():
 
-    # Total blogs
     total_blogs = Blog.query.count()
 
-    # AI generated blogs
-    ai_blogs = Blog.query.filter_by(category="AI").count()
+    ai_blogs = Blog.query.filter(
+        Blog.category.ilike("%AI%")
+    ).count()
 
-    # Total categories
     categories = db.session.query(
         Blog.category
     ).filter(
-        Blog.category.isnot(None)
+        Blog.category.isnot(None),
+        Blog.category != ""
     ).distinct().count()
 
-
-    # Recent 5 blogs
     recent_blogs = Blog.query.order_by(
         Blog.created_at.desc()
     ).limit(5).all()
@@ -200,40 +318,50 @@ def dashboard():
     )
 
 
-@app.route("/generate_ai", methods=["POST"])
+# ==========================
+# AI BLOG GENERATION
+# ==========================
+
+@app.route(
+    "/generate_ai",
+    methods=["POST"]
+)
 def generate_ai():
 
     title = request.form["title"]
-    keywords = request.form.get("keywords", "")
+
+    keywords = request.form.get(
+        "keywords",
+        ""
+    )
+
     length = request.form.get(
         "length",
         "Medium (1000 Words)"
     )
 
     prompt = f"""
-    Write a professional blog on the topic:
-    {title}
+Write a professional blog on the topic:
+{title}
 
-    Use these keywords:
-    {keywords}
+Use these keywords:
+{keywords}
 
-    The blog should have:
-    - Introduction
-    - Main Content
-    - Conclusion
+The blog should have:
+- Introduction
+- Main Content
+- Conclusion
 
-    Blog Length:
-    {length}
-    """
+Blog Length:
+{length}
+"""
 
     try:
 
-        # ==========================
-        # GROQ - BLOG GENERATION
-        # ==========================
-
         response = client.chat.completions.create(
+
             model="llama-3.3-70b-versatile",
+
             messages=[
                 {
                     "role": "user",
@@ -242,12 +370,12 @@ def generate_ai():
             ]
         )
 
-        blog_content = response.choices[0].message.content
-
-
-        # ==========================
-        # TOPIC-SPECIFIC IMAGE
-        # ==========================
+        blog_content = (
+            response
+            .choices[0]
+            .message
+            .content
+        )
 
         image_url = (
             "https://loremflickr.com/800/500/"
@@ -255,26 +383,22 @@ def generate_ai():
             + "?random=1"
         )
 
-        image_path = image_url
-
-
-        # ==========================
-        # FALLBACK IMAGE
-        # ==========================
-
-        fallback_path = "/static/images/fallback-cover.jpg"
-
+        fallback_path = (
+            "/static/images/fallback-cover.jpg"
+        )
 
         return {
             "content": blog_content,
-            "ai_image": image_path,
+            "ai_image": image_url,
             "fallback_image": fallback_path
         }
 
-
     except Exception as e:
 
-        print("AI ERROR:", e)
+        print(
+            "AI ERROR:",
+            e
+        )
 
         return {
             "content": "",
@@ -282,36 +406,60 @@ def generate_ai():
             "fallback_image": "/static/images/fallback-cover.jpg",
             "error": str(e)
         }
-    
+
+
 # ==========================
 # CREATE BLOG
 # ==========================
-@app.route("/create_blog", methods=["GET", "POST"])
+
+@app.route(
+    "/create_blog",
+    methods=["GET", "POST"]
+)
 def create_blog():
 
     if request.method == "POST":
 
-        title = request.form.get("title", "").strip()
-        category = request.form.get("category", "")
-        content = request.form.get("content", "")
+        title = request.form.get(
+            "title",
+            ""
+        ).strip()
+
+        category = request.form.get(
+            "category",
+            ""
+        )
+
+        content = request.form.get(
+            "content",
+            ""
+        )
 
         filename = ""
 
-        # =========================
         # AI IMAGE
-        # =========================
 
-        ai_image_url = request.form.get("ai_image_url", "")
+        ai_image_url = request.form.get(
+            "ai_image_url",
+            ""
+        )
 
         if ai_image_url:
 
             try:
-                response = requests.get(ai_image_url, timeout=10)
+
+                response = requests.get(
+                    ai_image_url,
+                    timeout=10
+                )
 
                 if response.status_code == 200:
 
                     filename = secure_filename(
-                        title.replace(" ", "_") + "_ai.jpg"
+                        title.replace(
+                            " ",
+                            "_"
+                        ) + "_ai.jpg"
                     )
 
                     image_path = os.path.join(
@@ -319,54 +467,77 @@ def create_blog():
                         filename
                     )
 
-                    with open(image_path, "wb") as f:
-                        f.write(response.content)
+                    with open(
+                        image_path,
+                        "wb"
+                    ) as f:
+
+                        f.write(
+                            response.content
+                        )
 
             except Exception as e:
-                print("AI IMAGE ERROR:", e)
 
+                print(
+                    "AI IMAGE ERROR:",
+                    e
+                )
 
-        # =========================
-        # USER UPLOADED IMAGE
-        # =========================
+        # USER IMAGE
 
         if "image" in request.files:
 
-            image = request.files.get("image")
+            image = request.files.get(
+                "image"
+            )
 
             if image and image.filename:
 
-                filename = secure_filename(image.filename)
+                filename = secure_filename(
+                    image.filename
+                )
 
                 image_path = os.path.join(
                     app.config["UPLOAD_FOLDER"],
                     filename
                 )
 
-                image.save(image_path)
+                image.save(
+                    image_path
+                )
 
-
-        # =========================
         # SAVE BLOG
-        # =========================
 
         blog = Blog(
+
             title=title,
+
             category=category,
+
             content=content,
+
             image=filename,
+
             ai_image=filename,
+
             user_id=1
         )
 
         db.session.add(blog)
+
         db.session.commit()
 
-        flash("Blog Created Successfully")
+        flash(
+            "Blog Created Successfully"
+        )
 
-        return redirect(url_for("myblogs"))
+        return redirect(
+            url_for("myblogs")
+        )
 
-    return render_template("create_blog.html")
+    return render_template(
+        "create_blog.html"
+    )
 
 
 # ==========================
@@ -376,12 +547,22 @@ def create_blog():
 @app.route("/myblogs")
 def myblogs():
 
-    search = request.args.get("search", "")
+    search = request.args.get(
+        "search",
+        ""
+    )
 
     if search:
-        blogs = Blog.query.filter(Blog.title.contains(search)).all()
+
+        blogs = Blog.query.filter(
+            Blog.title.contains(search)
+        ).all()
+
     else:
-        blogs = Blog.query.order_by(Blog.id.desc()).all()
+
+        blogs = Blog.query.order_by(
+            Blog.id.desc()
+        ).all()
 
     return render_template(
         "myblogs.html",
@@ -391,41 +572,59 @@ def myblogs():
 
 
 # ==========================
-# Blog
+# VIEW BLOG
 # ==========================
 
-@app.route("/blog/<int:blog_id>")
+@app.route(
+    "/blog/<int:blog_id>"
+)
 def view_blog(blog_id):
 
-    blog = Blog.query.get_or_404(blog_id)
+    blog = Blog.query.get_or_404(
+        blog_id
+    )
 
     return render_template(
         "blog.html",
         blog=blog
     )
 
+
 # ==========================
-# Analytics
+# ANALYTICS
 # ==========================
+
 @app.route("/analytics")
 def analytics():
 
+    # Total Blogs
     total_blogs = Blog.query.count()
 
-    ai_blogs = Blog.query.filter_by(category="AI").count()
+    # AI Blogs
+    ai_blogs = Blog.query.filter(
+        Blog.category.ilike("%AI%")
+    ).count()
 
+    # Unique Categories
     categories = db.session.query(
         Blog.category
+    ).filter(
+        Blog.category.isnot(None),
+        Blog.category != ""
     ).distinct().count()
 
-    category_data = (
-        db.session.query(
-            Blog.category,
-            db.func.count(Blog.id)
-        )
-        .group_by(Blog.category)
-        .all()
-    )
+    # Category-wise Blog Data
+    category_data = db.session.query(
+        Blog.category,
+        db.func.count(Blog.id)
+    ).filter(
+        Blog.category.isnot(None),
+        Blog.category != ""
+    ).group_by(
+        Blog.category
+    ).order_by(
+        db.func.count(Blog.id).desc()
+    ).all()
 
     return render_template(
         "analytics.html",
@@ -434,22 +633,28 @@ def analytics():
         categories=categories,
         category_data=category_data
     )
+
+
 # ==========================
-# AI GENERATE
+# AI GENERATE PAGE
 # ==========================
 
 @app.route("/ai_generate")
 def ai_generate():
-    return render_template("ai_generate.html")
 
+    return render_template(
+        "ai_generate.html"
+    )
 
 
 # ==========================
-# Profile
+# PROFILE
 # ==========================
 
-
-@app.route("/profile", methods=["GET", "POST"])
+@app.route(
+    "/profile",
+    methods=["GET", "POST"]
+)
 def profile():
 
     if request.method == "POST":
@@ -462,84 +667,165 @@ def profile():
         print("Email:", email)
         print("Bio:", bio)
 
-        flash("Profile Updated Successfully!")
+        flash(
+            "Profile Updated Successfully!"
+        )
 
-        return redirect(url_for("profile"))
+        return redirect(
+            url_for("profile")
+        )
 
-    return render_template("profile.html")
+    return render_template(
+        "profile.html"
+    )
 
 
 # ==========================
 # SETTINGS
 # ==========================
-@app.route("/settings", methods=["GET", "POST"])
+
+@app.route(
+    "/settings",
+    methods=["GET", "POST"]
+)
 def settings():
 
     if request.method == "POST":
 
-        password = request.form.get("password")
-        notifications = request.form.get("notifications")
-        dark_mode = request.form.get("dark_mode")
-        language = request.form.get("language")
+        password = request.form.get(
+            "password"
+        )
 
-        print("Password:", password)
-        print("Notifications:", notifications)
-        print("Dark Mode:", dark_mode)
-        print("Language:", language)
+        notifications = request.form.get(
+            "notifications"
+        )
 
-        flash("Settings Saved Successfully!")
+        dark_mode = request.form.get(
+            "dark_mode"
+        )
 
-        return redirect(url_for("settings"))
+        language = request.form.get(
+            "language"
+        )
 
-    return render_template("settings.html")
+        print(
+            "Password:",
+            password
+        )
+
+        print(
+            "Notifications:",
+            notifications
+        )
+
+        print(
+            "Dark Mode:",
+            dark_mode
+        )
+
+        print(
+            "Language:",
+            language
+        )
+
+        flash(
+            "Settings Saved Successfully!"
+        )
+
+        return redirect(
+            url_for("settings")
+        )
+
+    return render_template(
+        "settings.html"
+    )
 
 
 # ==========================
 # EDIT BLOG
 # ==========================
 
-@app.route("/edit_blog/<int:id>", methods=["GET", "POST"])
+@app.route(
+    "/edit_blog/<int:id>",
+    methods=["GET", "POST"]
+)
 def edit_blog(id):
 
     blog = Blog.query.get_or_404(id)
 
     if request.method == "POST":
 
-        blog.title = request.form["title"]
-        blog.category = request.form["category"]
-        blog.content = request.form["content"]
+        blog.title = request.form[
+            "title"
+        ]
 
-        image = request.files["image"]
+        blog.category = request.form[
+            "category"
+        ]
+
+        blog.content = request.form[
+            "content"
+        ]
+
+        image = request.files.get(
+            "image"
+        )
 
         if image and image.filename != "":
-            filename = secure_filename(image.filename)
-            image.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+
+            filename = secure_filename(
+                image.filename
+            )
+
+            image.save(
+                os.path.join(
+                    app.config["UPLOAD_FOLDER"],
+                    filename
+                )
+            )
+
             blog.image = filename
 
         db.session.commit()
 
-        flash("Blog Updated Successfully")
+        flash(
+            "Blog Updated Successfully"
+        )
 
-        return redirect("/myblogs")
+        return redirect(
+            "/myblogs"
+        )
 
-    return render_template("edit_blog.html", blog=blog)
+    return render_template(
+        "edit_blog.html",
+        blog=blog
+    )
 
 
 # ==========================
 # DELETE BLOG
 # ==========================
 
-@app.route("/delete_blog/<int:id>")
+@app.route(
+    "/delete_blog/<int:id>"
+)
 def delete_blog(id):
 
-    blog = Blog.query.get_or_404(id)
+    blog = Blog.query.get_or_404(
+        id
+    )
 
     db.session.delete(blog)
+
     db.session.commit()
 
-    flash("Blog Deleted Successfully")
+    flash(
+        "Blog Deleted Successfully"
+    )
 
-    return redirect("/myblogs")
+    return redirect(
+        "/myblogs"
+    )
 
 
 # ==========================
@@ -548,6 +834,9 @@ def delete_blog(id):
 
 @app.route("/logout")
 def logout():
+
+    session.clear()
+
     return redirect("/")
 
 
@@ -556,6 +845,7 @@ def logout():
 # ==========================
 
 with app.app_context():
+
     db.create_all()
 
 
@@ -564,4 +854,7 @@ with app.app_context():
 # ==========================
 
 if __name__ == "__main__":
-    app.run(debug=True)
+
+    app.run(
+        debug=True
+    )
