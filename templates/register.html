@@ -4,111 +4,396 @@
 
 {% block content %}
 
-<div class="container-fluid vh-100">
+<style>
+    body {
+        background: linear-gradient(135deg,
+                #eef2ff 0%,
+                #f8f5ff 45%,
+                #eaf7ff 100%) !important;
+        min-height: 100vh;
+    }
 
-    <div class="row h-100">
+    .register-page {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
 
-        <!-- Left Section -->
+        background:
+            radial-gradient(circle at 10% 20%,
+                rgba(124, 92, 255, 0.12),
+                transparent 25%),
+            radial-gradient(circle at 90% 80%,
+                rgba(0, 180, 255, 0.12),
+                transparent 25%);
+    }
 
-        <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center login-left">
+    .register-wrapper {
+        width: 100%;
+        max-width: 1050px;
 
-            <div class="text-center text-white">
+        display: grid;
+        grid-template-columns: 1fr 1fr;
 
-                <h1 class="display-4 fw-bold">
-                    Join AI Blog Generator
-                </h1>
+        background: rgba(255, 255, 255, 0.94);
 
-                <p class="mt-3 fs-5">
-                    Create, Publish & Manage Blogs with AI
-                </p>
+        border: 1px solid rgba(255, 255, 255, 0.8);
 
-                <img src="{{ url_for('static', filename='images/register.jfif') }}" class="img-fluid mt-4"
-                    style="max-width:430px;">
+        border-radius: 30px;
+        overflow: hidden;
 
-            </div>
+        box-shadow:
+            0 25px 70px rgba(50, 50, 93, 0.15),
+            0 8px 25px rgba(0, 0, 0, 0.06);
+
+        backdrop-filter: blur(15px);
+    }
+
+    /* LEFT SIDE */
+
+    .register-info {
+        padding: 60px 45px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        text-align: center;
+
+        background: linear-gradient(145deg,
+                #f7f3ff,
+                #eef5ff);
+    }
+
+    .register-info h1 {
+        font-size: 38px;
+        font-weight: 800;
+
+        color: #20243a;
+
+        margin-bottom: 15px;
+    }
+
+    .register-info p {
+        max-width: 420px;
+
+        font-size: 17px;
+        line-height: 1.7;
+
+        color: #73788c;
+    }
+
+    .register-image {
+        width: 100%;
+        max-width: 400px;
+
+        margin-top: 25px;
+
+        border-radius: 22px;
+
+        box-shadow:
+            0 15px 35px rgba(50, 50, 93, 0.12);
+    }
+
+
+    /* RIGHT SIDE */
+
+    .register-form-section {
+        padding: 50px;
+
+        background: rgba(255, 255, 255, 0.96);
+    }
+
+    .register-form-section h2 {
+        font-size: 30px;
+        font-weight: 800;
+
+        color: #20243a;
+
+        margin-bottom: 8px;
+    }
+
+    .register-subtitle {
+        color: #8a8fa3;
+
+        margin-bottom: 28px;
+    }
+
+    .register-label {
+        display: block;
+
+        font-weight: 600;
+
+        color: #363a4d;
+
+        margin-bottom: 8px;
+    }
+
+    .register-input {
+        width: 100%;
+
+        padding: 14px 17px;
+
+        border: 1px solid #e1e3eb;
+
+        border-radius: 14px;
+
+        background: #fafbff;
+
+        font-size: 16px;
+
+        outline: none;
+
+        transition: all 0.25s ease;
+    }
+
+    .register-input:focus {
+        background: white;
+
+        border-color: #7657ff;
+
+        box-shadow:
+            0 0 0 4px rgba(118, 87, 255, 0.10);
+    }
+
+
+    /* REGISTER BUTTON */
+
+    .register-btn {
+        width: 100%;
+
+        padding: 15px;
+
+        border: none;
+
+        border-radius: 14px;
+
+        font-size: 17px;
+
+        font-weight: 700;
+
+        color: white;
+
+        background: linear-gradient(135deg,
+                #7657ff,
+                #5b3df5);
+
+        cursor: pointer;
+
+        transition: all 0.25s ease;
+
+        box-shadow:
+            0 10px 25px rgba(104, 76, 255, 0.25);
+    }
+
+    .register-btn:hover {
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 14px 30px rgba(104, 76, 255, 0.32);
+    }
+
+
+    /* LOGIN LINK */
+
+    .login-text {
+        text-align: center;
+
+        margin-top: 25px;
+
+        color: #85899b;
+    }
+
+    .login-text a {
+        color: #6848f5;
+
+        font-weight: 700;
+
+        text-decoration: none;
+    }
+
+    .login-text a:hover {
+        text-decoration: underline;
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 768px) {
+
+        .register-page {
+            min-height: 100vh;
+
+            padding: 25px 15px;
+        }
+
+        .register-wrapper {
+            grid-template-columns: 1fr;
+
+            max-width: 500px;
+
+            border-radius: 25px;
+        }
+
+        .register-info {
+            padding: 35px 25px 25px;
+        }
+
+        .register-info h1 {
+            font-size: 30px;
+        }
+
+        .register-info p {
+            font-size: 15px;
+        }
+
+        .register-image {
+            max-width: 300px;
+        }
+
+        .register-form-section {
+            padding: 35px 25px;
+        }
+
+        .register-form-section h2 {
+            font-size: 26px;
+        }
+    }
+</style>
+
+
+<div class="register-page">
+
+    <div class="register-wrapper">
+
+        <!-- LEFT SIDE -->
+
+        <div class="register-info">
+
+            <h1>
+                Join AI Blog Generator
+            </h1>
+
+            <p>
+                Create, Publish & Manage Blogs with AI
+            </p>
+
+            <img src="{{ url_for('static', filename='images/register.jfif') }}" class="register-image"
+                alt="AI Blog Generator">
 
         </div>
 
-        <!-- Right Section -->
 
-        <div class="col-lg-6 d-flex align-items-center justify-content-center">
+        <!-- RIGHT SIDE -->
 
-            <div class="login-card">
+        <div class="register-form-section">
 
-                <h2 class="fw-bold text-center mb-4">
+            <h2 class="text-center">
+                Create Account 🚀
+            </h2>
 
-                    Create Account 🚀
+            <p class="register-subtitle text-center">
+                Fill in your details to get started
+            </p>
 
-                </h2>
 
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                {% for message in messages %}
+            <!-- FLASH MESSAGE -->
 
-                <div class="alert alert-success">
+            {% with messages = get_flashed_messages() %}
 
-                    {{ message }}
+            {% if messages %}
+
+            {% for message in messages %}
+
+            <div class="alert alert-success rounded-3">
+                {{ message }}
+            </div>
+
+            {% endfor %}
+
+            {% endif %}
+
+            {% endwith %}
+
+
+            <!-- FORM -->
+
+            <form action="/register" method="POST">
+
+                <!-- FULL NAME -->
+
+                <div class="mb-3">
+
+                    <label class="register-label">
+                        Full Name
+                    </label>
+
+                    <input type="text" name="fullname" class="register-input" placeholder="Enter Full Name" required>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="mb-3">
+
+                    <label class="register-label">
+                        Email
+                    </label>
+
+                    <input type="email" name="email" class="register-input" placeholder="Enter Email" required>
 
                 </div>
 
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
 
-                <form action="/register" method="POST">
+                <!-- PASSWORD -->
 
-                    <div class="mb-3">
+                <div class="mb-3">
 
-                        <label>Full Name</label>
+                    <label class="register-label">
+                        Password
+                    </label>
 
-                        <input type="text" name="fullname" class="form-control" placeholder="Enter Full Name">
-
-                    </div>
-
-                    <div class="mb-3">
-
-                        <label>Email</label>
-
-                        <input type="email" name="email" class="form-control" placeholder="Enter Email">
-
-                    </div>
-
-                    <div class="mb-3">
-
-                        <label>Password</label>
-
-                        <input type="password"  name="password" class="form-control" placeholder="Create Password">
-
-                    </div>
-
-                    <div class="mb-4">
-
-                        <label>Confirm Password</label>
-
-                        <input type="password" name="confirm_password" class="form-control"
-                            placeholder="Confirm Password">
-
-                    </div>
-
-                    <button class="btn btn-primary w-100 rounded-pill">
-
-                        Register
-
-                    </button>
-
-                </form>
-
-                <div class="text-center mt-4">
-
-                    Already have an account?
-
-                    <a href="/login">
-
-                        Login
-
-                    </a>
+                    <input type="password" name="password" class="register-input" placeholder="Create Password"
+                        required>
 
                 </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="mb-4">
+
+                    <label class="register-label">
+                        Confirm Password
+                    </label>
+
+                    <input type="password" name="confirm_password" class="register-input" placeholder="Confirm Password"
+                        required>
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <button type="submit" class="register-btn">
+                    Register
+                </button>
+
+            </form>
+
+
+            <!-- LOGIN -->
+
+            <div class="login-text">
+
+                Already have an account?
+
+                <a href="/login">
+                    Login
+                </a>
 
             </div>
 
