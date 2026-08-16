@@ -30,13 +30,13 @@ class Blog(db.Model):
         server_default=db.func.now()
     )
 
-    views = db.Column(db.Integer, default=0)
-
-
     user_id = db.Column(
         db.Integer,
         db.ForeignKey("users.id")
     )
+
+    views = db.Column(db.Integer, default=0)
+
 
 class Visitor(db.Model):
     __tablename__ = "visitors"

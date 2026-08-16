@@ -947,6 +947,28 @@ with app.app_context():
     db.create_all()
 
 
+with app.app_context():
+    db.create_all()
+
+    from sqlalchemy import text
+
+    try:
+        db.session.execute(
+            text("ALTER TABLE blogs ADD COLUMN views INTEGER DEFAULT 0")
+        )
+        db.session.commit()
+        print("✅ views column added successfully!")
+
+    except Exception as e:
+        db.session.rollback()
+
+        if "duplicate column name" in str(e).lower():
+            print("✅ views column already exists!")
+
+        else:
+            print("❌ DATABASE ERROR:", e)
+
+
 # ==========================
 # RUN
 # ==========================
