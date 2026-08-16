@@ -42,76 +42,6 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 
-# ==========================
-# DATABASE MODELS
-# ==========================
-
-class User(db.Model):
-
-    __tablename__ = "users"
-
-    id = db.Column(
-        db.Integer,
-        primary_key=True
-    )
-
-    fullname = db.Column(
-        db.String(100),
-        nullable=False
-    )
-
-    email = db.Column(
-        db.String(120),
-        unique=True,
-        nullable=False
-    )
-
-    password = db.Column(
-        db.String(200),
-        nullable=False
-    )
-
-
-class Blog(db.Model):
-
-    __tablename__ = "blogs"
-
-    id = db.Column(
-        db.Integer,
-        primary_key=True
-    )
-
-    title = db.Column(
-        db.String(200),
-        nullable=False
-    )
-
-    category = db.Column(
-        db.String(100)
-    )
-
-    content = db.Column(
-        db.Text
-    )
-
-    image = db.Column(
-        db.String(255)
-    )
-
-    ai_image = db.Column(
-        db.String(255)
-    )
-
-    created_at = db.Column(
-        db.DateTime,
-        server_default=db.func.now()
-    )
-
-    user_id = db.Column(
-        db.Integer,
-        db.ForeignKey("users.id")
-    )
-
 
 # ==========================
 # HOME
@@ -945,28 +875,6 @@ def logout():
 with app.app_context():
 
     db.create_all()
-
-
-with app.app_context():
-    db.create_all()
-
-    from sqlalchemy import text
-
-    try:
-        db.session.execute(
-            text("ALTER TABLE blogs ADD COLUMN views INTEGER DEFAULT 0")
-        )
-        db.session.commit()
-        print("✅ views column added successfully!")
-
-    except Exception as e:
-        db.session.rollback()
-
-        if "duplicate column name" in str(e).lower():
-            print("✅ views column already exists!")
-
-        else:
-            print("❌ DATABASE ERROR:", e)
 
 
 # ==========================
