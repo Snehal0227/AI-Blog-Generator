@@ -1,93 +1,350 @@
 {% extends "base.html" %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Login - AI Blog Generator{% endblock %}
 
 {% block content %}
 
-<div class="container-fluid vh-100">
+<style>
+    body {
+        margin: 0;
+        background: #f5f3ff;
+        font-family: "Segoe UI", sans-serif;
+    }
 
-    <div class="row h-100">
+    .login-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+        background: linear-gradient(135deg, #f5f3ff, #ffffff);
+    }
 
-        <!-- Left Side -->
+    .login-wrapper {
+        width: 100%;
+        max-width: 1100px;
+        min-height: 650px;
+        display: flex;
+        overflow: hidden;
+        border-radius: 28px;
+        background: white;
+        box-shadow: 0 25px 70px rgba(60, 40, 120, 0.18);
+    }
 
-        <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center login-left">
+    /* LEFT SIDE */
+    .login-left {
+        width: 48%;
+        padding: 55px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(145deg, #111b4b, #35208f, #7b35d9);
+    }
 
-            <div class="text-center text-white">
+    .login-left::before {
+        content: "";
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.07);
+        top: -150px;
+        right: -130px;
+    }
 
-                <h1 class="display-4 fw-bold">
-                    AI Blog Generator
-                </h1>
+    .login-left::after {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: rgba(170, 100, 255, 0.15);
+        bottom: -160px;
+        left: -100px;
+    }
 
-                <p class="mt-3 fs-5">
-                    Create Amazing Blogs with Artificial Intelligence
-                </p>
+    .brand {
+        position: relative;
+        z-index: 2;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 60px;
+    }
 
-                <img src="{{ url_for('static', filename='images/login.jfif') }}" class="img-fluid mt-4"
-                    style="max-width:450px;">
+    .brand span {
+        color: #c084fc;
+    }
 
+    .login-left h1 {
+        position: relative;
+        z-index: 2;
+        font-size: 48px;
+        line-height: 1.15;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+
+    .gradient-text {
+        color: #c084fc;
+    }
+
+    .login-left p {
+        position: relative;
+        z-index: 2;
+        font-size: 18px;
+        line-height: 1.7;
+        color: #ddd6fe;
+        max-width: 450px;
+    }
+
+    .login-image {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 390px;
+        margin-top: 35px;
+        border-radius: 20px;
+    }
+
+    /* RIGHT SIDE */
+    .login-right {
+        width: 52%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 55px;
+        background: #ffffff;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 440px;
+    }
+
+    .login-icon {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        background: #f0eaff;
+        color: #7435d4;
+    }
+
+    .login-card h2 {
+        color: #17213f;
+        font-size: 34px;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #7a8199;
+        margin-bottom: 35px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #252b45;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        height: 54px;
+        border-radius: 13px;
+        border: 1px solid #e1e3eb;
+        padding: 0 17px;
+        font-size: 15px;
+        transition: 0.25s;
+    }
+
+    .form-control:focus {
+        border-color: #7c3aed;
+        box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.10);
+    }
+
+    .login-btn {
+        height: 54px;
+        border: none;
+        border-radius: 13px;
+        width: 100%;
+        color: white;
+        font-size: 17px;
+        font-weight: 700;
+        background: linear-gradient(90deg, #6d28d9, #c026d3);
+        transition: 0.25s;
+    }
+
+    .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(124, 58, 237, 0.25);
+    }
+
+    .register-text {
+        text-align: center;
+        margin-top: 25px;
+        color: #777d92;
+    }
+
+    .register-text a {
+        color: #7435d4;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .register-text a:hover {
+        text-decoration: underline;
+    }
+
+    .alert {
+        border-radius: 12px;
+        font-size: 14px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 991px) {
+
+        .login-page {
+            padding: 15px;
+        }
+
+        .login-wrapper {
+            min-height: auto;
+        }
+
+        .login-left {
+            display: none;
+        }
+
+        .login-right {
+            width: 100%;
+            padding: 45px 25px;
+        }
+    }
+
+    @media (max-width: 480px) {
+
+        .login-page {
+            padding: 10px;
+        }
+
+        .login-right {
+            padding: 35px 20px;
+        }
+
+        .login-card h2 {
+            font-size: 28px;
+        }
+    }
+</style>
+
+
+<div class="login-page">
+
+    <div class="login-wrapper">
+
+        <!-- LEFT SIDE -->
+        <div class="login-left">
+
+            <div class="brand">
+                📖 <span>AI Blog</span> Generator
             </div>
+
+            <h1>
+                Let AI Inspire
+                Your <span class="gradient-text">Next Blog</span>
+            </h1>
+
+            <p>
+                Create, manage and publish amazing blogs
+                with the power of Artificial Intelligence.
+            </p>
+
+            <img src="{{ url_for('static', filename='images/login.jfif') }}" class="login-image"
+                alt="AI Blog Generator">
 
         </div>
 
-        <!-- Right Side -->
 
-        <div class="col-lg-6 d-flex align-items-center justify-content-center">
+        <!-- RIGHT SIDE -->
+        <div class="login-right">
 
             <div class="login-card">
 
-                <h2 class="fw-bold mb-4 text-center">
+                <div class="login-icon">
+                    🔐
+                </div>
 
-                    Welcome Back 👋
+                <h2>Welcome Back!</h2>
 
-                </h2>
+                <p class="subtitle">
+                    Login to your account and continue writing your story.
+                </p>
+
+
+                <!-- FLASH MESSAGE -->
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
+
                 {% for message in messages %}
 
-                <div class="alert alert-danger">
-
+                <div class="alert alert-danger mb-4">
                     {{ message }}
-
                 </div>
 
                 {% endfor %}
+
                 {% endif %}
                 {% endwith %}
 
-                <form action="/login" method="POST">
 
-                    <div class="mb-3">
-
-                        <label>Email</label>
-
-                        <input type="email" name="email" class="form-control" placeholder="Enter Email">
-
-                    </div>
+                <!-- LOGIN FORM -->
+                <form action="{{ url_for('login') }}" method="POST">
 
                     <div class="mb-4">
 
-                        <label>Password</label>
+                        <label class="form-label">
+                            Email Address
+                        </label>
 
-                        <input type="password" name="password" class="form-control" placeholder="Enter Password">
+                        <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
 
                     </div>
 
-                    <button class="btn btn-primary w-100 rounded-pill">
 
-                        Login
+                    <div class="mb-4">
 
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        <input type="password" name="password" class="form-control" placeholder="Enter your password"
+                            required>
+
+                    </div>
+
+
+                    <button type="submit" class="login-btn">
+                        🚀 &nbsp; Login
                     </button>
 
                 </form>
 
-                <div class="text-center mt-4">
+
+                <div class="register-text">
 
                     Don't have an account?
 
-                    <a href="/register">
-
-                        Register
-
+                    <a href="{{ url_for('register') }}">
+                        Register here
                     </a>
 
                 </div>
