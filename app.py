@@ -505,23 +505,46 @@ def myblogs():
 # ==========================
 # VIEW BLOG
 # ==========================
-
-@app.route(
-    "/blog/<int:blog_id>"
-)
+@app.route("/blog/<int:blog_id>")
 def view_blog(blog_id):
 
-    blog = Blog.query.get_or_404(
-        blog_id
-    )
+    blog = Blog.query.get_or_404(blog_id)
 
-    blog.views +=1
+    blog.views += 1
+
+    # Visitor ID
+    visitor_id = session.get("visitor_id")
+
+    if not visitor_id:
+        import uuid
+
+        visitor_id = str(uuid.uuid4())
+        session["visitor_id"] = visitor_id
+
+        visitor = Visitor(
+            visitor_id=visitor_id,
+            is_new=True,
+            location="India",
+            device="Web"
+        )
+
+        db.session.add(visitor)
+
+    else:
+        visitor = Visitor.query.filter_by(
+            visitor_id=visitor_id
+        ).first()
+
+        if visitor:
+            visitor.is_new = False
+
     db.session.commit()
 
     return render_template(
         "blog.html",
         blog=blog
     )
+
 # ==========================
 # ANALYTICS
 # ==========================
