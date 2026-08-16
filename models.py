@@ -37,3 +37,19 @@ class Blog(db.Model):
         db.Integer,
         db.ForeignKey("users.id")
     )
+
+class Visitor(db.Model):
+    __tablename__ = "visitors"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    ip_address = db.Column(db.String(100))
+    device = db.Column(db.String(50))
+    location = db.Column(db.String(100))
+
+    is_new = db.Column(db.Boolean, default=True)
+
+    created_at = db.Column(
+        db.DateTime,
+        server_default=db.func.now()
+    )

@@ -171,11 +171,16 @@
         </div>
 
 
+        <!-- ==========================
+     CONTENT INSIGHTS
+========================== -->
+
         <!-- Views -->
         <div id="views" class="insight-content active">
 
             <div class="row g-4">
 
+                <!-- Total Views -->
                 <div class="col-md-4">
                     <div class="insight-stat">
 
@@ -187,11 +192,11 @@
                             </small>
 
                             <h3 class="fw-bold mb-0">
-                                58K
+                                {{ total_views }}
                             </h3>
 
-                            <small class="text-success">
-                                ↑ 18.5%
+                            <small class="text-primary">
+                                From Database
                             </small>
                         </div>
 
@@ -199,22 +204,23 @@
                 </div>
 
 
+                <!-- Total Blogs -->
                 <div class="col-md-4">
                     <div class="insight-stat">
 
-                        <span>📅</span>
+                        <span>📝</span>
 
                         <div>
                             <small class="text-muted">
-                                This Month
+                                Total Blogs
                             </small>
 
                             <h3 class="fw-bold mb-0">
-                                12.4K
+                                {{ total_blogs }}
                             </h3>
 
                             <small class="text-success">
-                                ↑ 12%
+                                Content Created
                             </small>
                         </div>
 
@@ -222,6 +228,7 @@
                 </div>
 
 
+                <!-- Best Blog -->
                 <div class="col-md-4">
                     <div class="insight-stat">
 
@@ -232,13 +239,28 @@
                                 Top Blog
                             </small>
 
+                            {% if best_blog %}
+
                             <h6 class="fw-bold mb-0">
-                                Future of AI
+                                {{ best_blog.title }}
                             </h6>
 
                             <small class="text-primary">
-                                8.2K Views
+                                {{ best_blog.views }} Views
                             </small>
+
+                            {% else %}
+
+                            <h6 class="fw-bold mb-0">
+                                No Blog Yet
+                            </h6>
+
+                            <small class="text-muted">
+                                Create a blog to see data
+                            </small>
+
+                            {% endif %}
+
                         </div>
 
                     </div>
@@ -247,45 +269,40 @@
             </div>
 
 
-            <!-- Chart -->
+            <!-- Views Overview -->
             <div class="insight-chart mt-4">
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
 
                     <div>
+
                         <h5 class="fw-bold mb-1">
                             📈 Views Overview
                         </h5>
 
                         <small class="text-muted">
-                            Track your blog views
+                            Views calculated from your blog database
                         </small>
+
                     </div>
-
-                    <select id="dateFilter" class="form-select rounded-pill" style="width:140px;"
-                        onchange="changePeriod()">
-
-                        <option value="7">7 Days</option>
-                        <option value="30">30 Days</option>
-                        <option value="90">90 Days</option>
-
-                    </select>
 
                 </div>
 
 
-                <div class="d-flex align-items-end gap-3 mb-3">
+                <div class="d-flex align-items-end gap-3 mb-4">
 
-                    <h2 class="fw-bold mb-0" id="viewNumber">
-                        58K
+                    <h2 class="fw-bold mb-0">
+                        {{ total_views }}
                     </h2>
 
-                    <span class="text-success fw-semibold mb-1">
-                        ↑ 18.5%
+                    <span class="text-primary fw-semibold mb-1">
+                        Total Views
                     </span>
 
                 </div>
 
+
+                <!-- Simple database-based view bar -->
 
                 <div class="views-chart">
 
@@ -293,48 +310,27 @@
 
                     <div class="chart-bars">
 
-                        <div class="chart-bar" style="height:45%;">
-                            <span>4.2K</span>
+                        {% if total_blogs > 0 %}
+
+                        <div class="chart-bar" style="height:70%;">
+                            <span>
+                                {{ total_views }}
+                            </span>
                         </div>
 
-                        <div class="chart-bar" style="height:62%;">
-                            <span>5.8K</span>
+                        {% else %}
+
+                        <div class="text-center w-100 py-5">
+
+                            <h6 class="text-muted">
+                                No view data available yet
+                            </h6>
+
                         </div>
 
-                        <div class="chart-bar" style="height:52%;">
-                            <span>4.9K</span>
-                        </div>
-
-                        <div class="chart-bar" style="height:75%;">
-                            <span>7.1K</span>
-                        </div>
-
-                        <div class="chart-bar" style="height:68%;">
-                            <span>6.4K</span>
-                        </div>
-
-                        <div class="chart-bar" style="height:88%;">
-                            <span>8.3K</span>
-                        </div>
-
-                        <div class="chart-bar" style="height:96%;">
-                            <span>9.1K</span>
-                        </div>
+                        {% endif %}
 
                     </div>
-
-                </div>
-
-
-                <div class="chart-labels">
-
-                    <span>Mon</span>
-                    <span>Tue</span>
-                    <span>Wed</span>
-                    <span>Thu</span>
-                    <span>Fri</span>
-                    <span>Sat</span>
-                    <span>Sun</span>
 
                 </div>
 
@@ -343,41 +339,88 @@
         </div>
 
 
-        <!-- Overview -->
+
+        <!-- ==========================
+     OVERVIEW
+========================== -->
+
         <div id="overview" class="insight-content">
 
             <div class="row g-4">
 
                 <div class="col-md-3">
+
                     <div class="overview-box">
+
                         <span>📝</span>
-                        <h3>{{ total_blogs }}</h3>
-                        <small>Total Blogs</small>
+
+                        <h3>
+                            {{ total_blogs }}
+                        </h3>
+
+                        <small>
+                            Total Blogs
+                        </small>
+
                     </div>
+
                 </div>
 
+
                 <div class="col-md-3">
+
                     <div class="overview-box">
+
                         <span>🤖</span>
-                        <h3>{{ ai_blogs }}</h3>
-                        <small>AI Generated</small>
+
+                        <h3>
+                            {{ ai_blogs }}
+                        </h3>
+
+                        <small>
+                            AI Generated
+                        </small>
+
                     </div>
+
                 </div>
 
+
                 <div class="col-md-3">
+
                     <div class="overview-box">
+
                         <span>📚</span>
-                        <h3>{{ categories }}</h3>
-                        <small>Categories</small>
+
+                        <h3>
+                            {{ categories }}
+                        </h3>
+
+                        <small>
+                            Categories
+                        </small>
+
                     </div>
+
                 </div>
 
+
                 <div class="col-md-3">
+
                     <div class="overview-box">
-                        <span>⚡</span>
-                        <h3>High</h3>
-                        <small>Performance</small>
+
+                        <span>👁️</span>
+
+                        <h3>
+                            {{ total_views }}
+                        </h3>
+
+                        <small>
+                            Total Views
+                        </small>
+
                     </div>
+
                 </div>
 
             </div>
@@ -385,10 +428,17 @@
         </div>
 
 
-        <!-- Audience -->
+
+        <!-- ==========================
+     AUDIENCE TAB
+========================== -->
+
         <div id="audience" class="insight-content">
 
             <div class="row g-4">
+
+
+                <!-- Total Audience -->
 
                 <div class="col-md-4">
 
@@ -399,7 +449,7 @@
                         </div>
 
                         <h3 class="fw-bold">
-                            12.8K
+                            {{ total_visitors }}
                         </h3>
 
                         <p class="text-muted mb-0">
@@ -411,6 +461,8 @@
                 </div>
 
 
+                <!-- New Visitors -->
+
                 <div class="col-md-4">
 
                     <div class="audience-box">
@@ -420,7 +472,7 @@
                         </div>
 
                         <h3 class="fw-bold">
-                            8.4K
+                            {{ new_visitors }}
                         </h3>
 
                         <p class="text-muted mb-0">
@@ -432,6 +484,8 @@
                 </div>
 
 
+                <!-- Returning Visitors -->
+
                 <div class="col-md-4">
 
                     <div class="audience-box">
@@ -441,7 +495,7 @@
                         </div>
 
                         <h3 class="fw-bold">
-                            4.4K
+                            {{ returning_visitors }}
                         </h3>
 
                         <p class="text-muted mb-0">
@@ -458,10 +512,16 @@
 
     </div>
 
-    <!-- Main Analytics -->
+
+
+    <!-- ==========================
+     BLOG PERFORMANCE
+========================== -->
+
     <div class="row g-4">
 
         <!-- Category Performance -->
+
         <div class="col-lg-8 col-md-12">
 
             <div class="analytics-panel">
@@ -469,6 +529,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
 
                     <div>
+
                         <h4 class="fw-bold mb-1">
                             📈 Blog Performance
                         </h4>
@@ -476,13 +537,15 @@
                         <p class="text-muted mb-0">
                             Blogs created by category
                         </p>
+
                     </div>
 
                     <span class="badge bg-primary-subtle text-primary">
-                        Overview
+                        Database
                     </span>
 
                 </div>
+
 
                 {% if category_data %}
 
@@ -502,11 +565,11 @@
 
                     </div>
 
+
                     <div class="progress" style="height:8px;">
 
                         <div class="progress-bar bg-primary rounded-pill" data-width="{{ [count * 10, 100] | min }}">
                         </div>
-
                     </div>
 
                 </div>
@@ -530,7 +593,9 @@
                     </p>
 
                     <a href="/create_blog" class="btn btn-primary rounded-pill">
+
                         ✍️ Create Blog
+
                     </a>
 
                 </div>
@@ -542,7 +607,9 @@
         </div>
 
 
+
         <!-- AI Insights -->
+
         <div class="col-lg-4 col-md-12">
 
             <div class="analytics-panel h-100">
@@ -565,44 +632,59 @@
 
                 <hr>
 
+
                 <div class="insight-item">
 
                     <span>📝</span>
 
                     <div>
-                        <strong>Blog Creation</strong>
+
+                        <strong>
+                            Blog Creation
+                        </strong>
 
                         <p class="text-muted mb-0">
-                            Keep creating quality content.
+                            {{ total_blogs }} blogs created.
                         </p>
+
                     </div>
 
                 </div>
+
 
                 <div class="insight-item">
 
                     <span>🤖</span>
 
                     <div>
-                        <strong>AI Usage</strong>
+
+                        <strong>
+                            AI Usage
+                        </strong>
 
                         <p class="text-muted mb-0">
-                            AI helps generate content faster.
+                            {{ ai_blogs }} AI related blogs.
                         </p>
+
                     </div>
 
                 </div>
 
+
                 <div class="insight-item">
 
-                    <span>🚀</span>
+                    <span>📚</span>
 
                     <div>
-                        <strong>Productivity</strong>
+
+                        <strong>
+                            Categories
+                        </strong>
 
                         <p class="text-muted mb-0">
-                            Your workflow is AI assisted.
+                            {{ categories }} different categories.
                         </p>
+
                     </div>
 
                 </div>
@@ -613,7 +695,12 @@
 
     </div>
 
-    <!-- Audience Overview -->
+
+
+    <!-- ==========================
+     AUDIENCE OVERVIEW
+========================== -->
+
     <div class="analytics-panel mt-4">
 
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -629,23 +716,18 @@
                 </h4>
 
                 <p class="text-muted mb-0">
-                    Understand who is visiting your blog.
+                    Real visitor data from database.
                 </p>
 
             </div>
-
-            <select class="form-select rounded-pill" style="width:140px;">
-
-                <option>Last 7 Days</option>
-                <option>Last 30 Days</option>
-                <option>Last 90 Days</option>
-
-            </select>
 
         </div>
 
 
         <div class="row g-4">
+
+
+            <!-- Visitor Summary -->
 
             <div class="col-lg-5">
 
@@ -655,11 +737,14 @@
                         👥 Visitors
                     </h6>
 
+
                     <div class="donut-chart">
 
                         <div class="donut-center">
 
-                            <strong>58K</strong>
+                            <strong>
+                                {{ total_visitors }}
+                            </strong>
 
                             <small>
                                 Visitors
@@ -672,13 +757,16 @@
 
                     <div class="mt-4">
 
+
                         <div class="audience-legend">
 
                             <span class="legend-dot new"></span>
 
                             New Visitors
 
-                            <strong>68%</strong>
+                            <strong>
+                                {{ new_percentage }}%
+                            </strong>
 
                         </div>
 
@@ -689,7 +777,9 @@
 
                             Returning Visitors
 
-                            <strong>32%</strong>
+                            <strong>
+                                {{ returning_percentage }}%
+                            </strong>
 
                         </div>
 
@@ -700,9 +790,15 @@
             </div>
 
 
+
+            <!-- Audience Statistics -->
+
             <div class="col-lg-7">
 
                 <div class="row g-3">
+
+
+                    <!-- New Visitors -->
 
                     <div class="col-md-6">
 
@@ -717,17 +813,19 @@
                             </small>
 
                             <h3 class="fw-bold mb-1">
-                                39.4K
+                                {{ new_visitors }}
                             </h3>
 
-                            <span class="text-success">
-                                ↑ 12%
+                            <span class="text-primary">
+                                {{ new_percentage }}%
                             </span>
 
                         </div>
 
                     </div>
 
+
+                    <!-- Returning Visitors -->
 
                     <div class="col-md-6">
 
@@ -742,17 +840,19 @@
                             </small>
 
                             <h3 class="fw-bold mb-1">
-                                18.6K
+                                {{ returning_visitors }}
                             </h3>
 
-                            <span class="text-success">
-                                ↑ 8.4%
+                            <span class="text-primary">
+                                {{ returning_percentage }}%
                             </span>
 
                         </div>
 
                     </div>
 
+
+                    <!-- Top Location -->
 
                     <div class="col-md-6">
 
@@ -767,17 +867,19 @@
                             </small>
 
                             <h3 class="fw-bold mb-1">
-                                India 🇮🇳
+                                {{ top_location }}
                             </h3>
 
                             <span class="text-primary">
-                                72% Audience
+                                {{ location_percentage }}% Audience
                             </span>
 
                         </div>
 
                     </div>
 
+
+                    <!-- Main Device -->
 
                     <div class="col-md-6">
 
@@ -792,11 +894,11 @@
                             </small>
 
                             <h3 class="fw-bold mb-1">
-                                Mobile
+                                {{ main_device }}
                             </h3>
 
                             <span class="text-primary">
-                                64% Users
+                                {{ device_percentage }}% Users
                             </span>
 
                         </div>
@@ -811,210 +913,154 @@
 
     </div>
 
-</div>
 
 
-<!-- Top Content -->
+    <!-- ==========================
+     BEST PERFORMING BLOG
+========================== -->
 
-<div class="analytics-panel mt-4">
+    <div class="analytics-panel mt-4">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+
+                <span class="badge rounded-pill bg-warning-subtle text-warning px-3 py-2">
+                    🔥 Top Content
+                </span>
+
+                <h4 class="fw-bold mt-2 mb-1">
+                    Best Performing Blog
+                </h4>
+
+                <p class="text-muted mb-0">
+                    Blog with the highest number of views.
+                </p>
+
+            </div>
+
+            <a href="/myblogs" class="btn btn-outline-primary rounded-pill px-4">
+
+                View All
+
+            </a>
+
+        </div>
+
+
+        {% if best_blog %}
+
+        <div class="top-content-item">
+
+            <div class="rank">
+                01
+            </div>
+
+
+            <div class="content-info">
+
+                <h6 class="fw-bold mb-1">
+                    {{ best_blog.title }}
+                </h6>
+
+                <small class="text-muted">
+
+                    {% if best_blog.category %}
+                    {{ best_blog.category }}
+                    {% else %}
+                    Uncategorized
+                    {% endif %}
+
+                    • Published
+
+                </small>
+
+
+                <div class="progress mt-2" style="height:7px;">
+
+                    <div class="progress-bar bg-primary rounded-pill" style="width:100%;">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="content-views">
+
+                <strong>
+                    {{ best_blog.views }}
+                </strong>
+
+                <small>
+                    Views
+                </small>
+
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <div class="text-center py-5">
+
+            <div style="font-size:50px;">
+                📝
+            </div>
+
+            <h5 class="fw-bold mt-3">
+                No Blogs Yet
+            </h5>
+
+            <p class="text-muted">
+                Create a blog to see your best performing content.
+            </p>
+
+            <a href="/create_blog" class="btn btn-primary rounded-pill">
+
+                ✍️ Create Blog
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- Bottom CTA -->
+
+    <div class="analytics-cta mt-4">
 
         <div>
-            <span class="badge rounded-pill bg-warning-subtle text-warning px-3 py-2">
-                🔥 Top Content
-            </span>
 
-            <h4 class="fw-bold mt-2 mb-1">
-                Best Performing Blogs
+            <h4 class="fw-bold">
+                🚀 Ready to create another blog?
             </h4>
 
             <p class="text-muted mb-0">
-                See which blogs are getting the most attention.
+                Use AI to generate professional content quickly.
             </p>
+
         </div>
 
-        <a href="/myblogs" class="btn btn-outline-primary rounded-pill px-4">
-            View All
+        <a href="/ai_generate" class="btn btn-primary rounded-pill px-4">
+            ✨ Generate with AI
         </a>
 
     </div>
 
 
-    <!-- Blog 1 -->
+    <!-- Footer -->
 
-    <div class="top-content-item">
+    <div class="text-center text-muted py-4">
 
-        <div class="rank">
-            01
-        </div>
-
-        <div class="content-info">
-
-            <h6 class="fw-bold mb-1">
-                Future of Artificial Intelligence
-            </h6>
-
-            <small class="text-muted">
-                Technology • Published
-            </small>
-
-            <div class="progress mt-2" style="height:7px;">
-
-                <div class="progress-bar bg-primary rounded-pill" style="width:92%;">
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="content-views">
-            <strong>12.4K</strong>
-            <small>Views</small>
-        </div>
+        <small>
+            © 2026 AI Blog Generator | Analytics
+        </small>
 
     </div>
-
-
-    <!-- Blog 2 -->
-
-    <div class="top-content-item">
-
-        <div class="rank">
-            02
-        </div>
-
-        <div class="content-info">
-
-            <h6 class="fw-bold mb-1">
-                Top Python Libraries
-            </h6>
-
-            <small class="text-muted">
-                Programming • Published
-            </small>
-
-            <div class="progress mt-2" style="height:7px;">
-
-                <div class="progress-bar bg-primary rounded-pill" style="width:76%;">
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="content-views">
-            <strong>9.8K</strong>
-            <small>Views</small>
-        </div>
-
-    </div>
-
-
-    <!-- Blog 3 -->
-
-    <div class="top-content-item">
-
-        <div class="rank">
-            03
-        </div>
-
-        <div class="content-info">
-
-            <h6 class="fw-bold mb-1">
-                Flask Complete Guide
-            </h6>
-
-            <small class="text-muted">
-                Python • Published
-            </small>
-
-            <div class="progress mt-2" style="height:7px;">
-
-                <div class="progress-bar bg-primary rounded-pill" style="width:61%;">
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="content-views">
-            <strong>7.2K</strong>
-            <small>Views</small>
-        </div>
-
-    </div>
-
-
-    <!-- Blog 4 -->
-
-    <div class="top-content-item">
-
-        <div class="rank">
-            04
-        </div>
-
-        <div class="content-info">
-
-            <h6 class="fw-bold mb-1">
-                AI in Education
-            </h6>
-
-            <small class="text-muted">
-                Education • Published
-            </small>
-
-            <div class="progress mt-2" style="height:7px;">
-
-                <div class="progress-bar bg-primary rounded-pill" style="width:48%;">
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="content-views">
-            <strong>5.6K</strong>
-            <small>Views</small>
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- Bottom CTA -->
-
-<div class="analytics-cta mt-4">
-
-    <div>
-
-        <h4 class="fw-bold">
-            🚀 Ready to create another blog?
-        </h4>
-
-        <p class="text-muted mb-0">
-            Use AI to generate professional content quickly.
-        </p>
-
-    </div>
-
-    <a href="/ai_generate" class="btn btn-primary rounded-pill px-4">
-        ✨ Generate with AI
-    </a>
-
-</div>
-
-
-<!-- Footer -->
-
-<div class="text-center text-muted py-4">
-
-    <small>
-        © 2026 AI Blog Generator | Analytics
-    </small>
-
-</div>
 
 </div>
 

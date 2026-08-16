@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, flash, url_for, ses
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 from urllib.parse import quote
+from models import db, User, Blog, Visitor
 import os
 from dotenv import load_dotenv
 import requests
@@ -589,7 +590,6 @@ def view_blog(blog_id):
         blog=blog
     )
 
-
 # ==========================
 # ANALYTICS
 # ==========================
@@ -597,15 +597,16 @@ def view_blog(blog_id):
 @app.route("/analytics")
 def analytics():
 
-    # Total Blogs
+    # --------------------------
+    # BLOG DATA
+    # --------------------------
+
     total_blogs = Blog.query.count()
 
-    # AI Blogs
     ai_blogs = Blog.query.filter(
         Blog.category.ilike("%AI%")
     ).count()
 
-    # Unique Categories
     categories = db.session.query(
         Blog.category
     ).filter(
@@ -613,7 +614,6 @@ def analytics():
         Blog.category != ""
     ).distinct().count()
 
-    # Category-wise Blog Data
     category_data = db.session.query(
         Blog.category,
         db.func.count(Blog.id)
@@ -626,14 +626,156 @@ def analytics():
         db.func.count(Blog.id).desc()
     ).all()
 
+
+    # --------------------------
+    # BEST PERFORMING BLOG
+    # --------------------------
+
+    best_blog = Blog.query.order_by(
+        Blog.views.desc()
+    ).first()
+
+
+    # --------------------------
+    # TOTAL VIEWS
+    # --------------------------
+
+    total_views = db.session.query(
+        db.func.sum(Blog.views)
+    ).scalar() or 0
+
+
+    # --------------------------
+    # AUDIENCE DATA
+    # --------------------------
+
+    total_visitors = Visitor.query.count()
+
+    new_visitors = Visitor.query.filter_by(
+        is_new=True
+    ).count()
+
+    returning_visitors = Visitor.query.filter_by(
+        is_new=False
+    ).count()
+
+
+    # --------------------------
+    # TOP LOCATION
+    # --------------------------
+
+    top_location_data = db.session.query(
+        Visitor.location,
+        db.func.count(Visitor.id)
+    ).filter(
+        Visitor.location.isnot(None),
+        Visitor.location != ""
+    ).group_by(
+        Visitor.location
+    ).order_by(
+        db.func.count(Visitor.id).desc()
+    ).first()
+
+    top_location = (
+        top_location_data[0]
+        if top_location_data
+        else "No Data"
+    )
+
+    top_location_count = (
+        top_location_data[1]
+        if top_location_data
+        else 0
+    )
+
+
+    # --------------------------
+    # MAIN DEVICE
+    # --------------------------
+
+    top_device_data = db.session.query(
+        Visitor.device,
+        db.func.count(Visitor.id)
+    ).filter(
+        Visitor.device.isnot(None),
+        Visitor.device != ""
+    ).group_by(
+        Visitor.device
+    ).order_by(
+        db.func.count(Visitor.id).desc()
+    ).first()
+
+    main_device = (
+        top_device_data[0]
+        if top_device_data
+        else "No Data"
+    )
+
+    main_device_count = (
+        top_device_data[1]
+        if top_device_data
+        else 0
+    )
+
+
+    # --------------------------
+    # PERCENTAGES
+    # --------------------------
+
+    if total_visitors > 0:
+
+        new_percentage = round(
+            (new_visitors / total_visitors) * 100
+        )
+
+        returning_percentage = round(
+            (returning_visitors / total_visitors) * 100
+        )
+
+        location_percentage = round(
+            (top_location_count / total_visitors) * 100
+        )
+
+        device_percentage = round(
+            (main_device_count / total_visitors) * 100
+        )
+
+    else:
+
+        new_percentage = 0
+        returning_percentage = 0
+        location_percentage = 0
+        device_percentage = 0
+
+
+    # --------------------------
+    # SEND DATA TO HTML
+    # --------------------------
+
     return render_template(
         "analytics.html",
+
         total_blogs=total_blogs,
         ai_blogs=ai_blogs,
         categories=categories,
-        category_data=category_data
-    )
+        category_data=category_data,
 
+        total_views=total_views,
+        best_blog=best_blog,
+
+        total_visitors=total_visitors,
+        new_visitors=new_visitors,
+        returning_visitors=returning_visitors,
+
+        new_percentage=new_percentage,
+        returning_percentage=returning_percentage,
+
+        top_location=top_location,
+        location_percentage=location_percentage,
+
+        main_device=main_device,
+        device_percentage=device_percentage
+    )
 
 # ==========================
 # AI GENERATE PAGE
