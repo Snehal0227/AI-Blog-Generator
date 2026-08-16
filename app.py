@@ -20,7 +20,7 @@ app.config["SECRET_KEY"] = "ai_blog_generator_secret_key"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-db = SQLAlchemy(app)
+db.init_app(app)
 
 # ==========================
 # GROQ
