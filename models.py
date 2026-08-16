@@ -25,13 +25,13 @@ class Blog(db.Model):
     image = db.Column(db.String(255))
     ai_image = db.Column(db.String(255))
 
-    # Analytics साठी
-    views = db.Column(db.Integer, default=0)
-
     created_at = db.Column(
         db.DateTime,
         server_default=db.func.now()
     )
+
+    views = db.Column(db.Integer, default=0)
+
 
     user_id = db.Column(
         db.Integer,

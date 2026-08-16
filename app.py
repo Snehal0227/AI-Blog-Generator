@@ -585,11 +585,13 @@ def view_blog(blog_id):
         blog_id
     )
 
+    blog.views +=1
+    db.session.commit()
+
     return render_template(
         "blog.html",
         blog=blog
     )
-
 # ==========================
 # ANALYTICS
 # ==========================
@@ -598,7 +600,7 @@ def view_blog(blog_id):
 def analytics():
 
     # --------------------------
-    # BLOG DATA
+    # CONTENT INSIGHTS
     # --------------------------
 
     total_blogs = Blog.query.count()
@@ -614,24 +616,21 @@ def analytics():
         Blog.category != ""
     ).distinct().count()
 
-    category_data = db.session.query(
-        Blog.category,
-        db.func.count(Blog.id)
-    ).filter(
-        Blog.category.isnot(None),
-        Blog.category != ""
-    ).group_by(
-        Blog.category
-    ).order_by(
-        db.func.count(Blog.id).desc()
-    ).all()
+
+    # --------------------------
+    # BEST PERFORMING BLOGS
+    # --------------------------
+
+    best_blogs = Blog.query.order_by(
+        Blog.views.desc()
+    ).limit(4).all()
 
 
     # --------------------------
-    # BEST PERFORMING BLOG
+    # TOP BLOG
     # --------------------------
 
-    best_blog = Blog.query.order_by(
+    top_blog = Blog.query.order_by(
         Blog.views.desc()
     ).first()
 
@@ -641,15 +640,17 @@ def analytics():
     # --------------------------
 
     total_views = db.session.query(
-        db.func.sum(Blog.views)
-    ).scalar() or 0
+        db.func.coalesce(
+            db.func.sum(Blog.views), 0
+        )
+    ).scalar()
 
 
     # --------------------------
-    # AUDIENCE DATA
+    # AUDIENCE
     # --------------------------
 
-    total_visitors = Visitor.query.count()
+    total_audience = Visitor.query.count()
 
     new_visitors = Visitor.query.filter_by(
         is_new=True
@@ -664,7 +665,7 @@ def analytics():
     # TOP LOCATION
     # --------------------------
 
-    top_location_data = db.session.query(
+    top_location = db.session.query(
         Visitor.location,
         db.func.count(Visitor.id)
     ).filter(
@@ -676,24 +677,12 @@ def analytics():
         db.func.count(Visitor.id).desc()
     ).first()
 
-    top_location = (
-        top_location_data[0]
-        if top_location_data
-        else "No Data"
-    )
-
-    top_location_count = (
-        top_location_data[1]
-        if top_location_data
-        else 0
-    )
-
 
     # --------------------------
     # MAIN DEVICE
     # --------------------------
 
-    top_device_data = db.session.query(
+    main_device = db.session.query(
         Visitor.device,
         db.func.count(Visitor.id)
     ).filter(
@@ -705,52 +694,23 @@ def analytics():
         db.func.count(Visitor.id).desc()
     ).first()
 
-    main_device = (
-        top_device_data[0]
-        if top_device_data
-        else "No Data"
-    )
-
-    main_device_count = (
-        top_device_data[1]
-        if top_device_data
-        else 0
-    )
-
 
     # --------------------------
-    # PERCENTAGES
+    # CATEGORY PERFORMANCE
     # --------------------------
 
-    if total_visitors > 0:
+    category_data = db.session.query(
+        Blog.category,
+        db.func.count(Blog.id)
+    ).filter(
+        Blog.category.isnot(None),
+        Blog.category != ""
+    ).group_by(
+        Blog.category
+    ).order_by(
+        db.func.count(Blog.id).desc()
+    ).all()
 
-        new_percentage = round(
-            (new_visitors / total_visitors) * 100
-        )
-
-        returning_percentage = round(
-            (returning_visitors / total_visitors) * 100
-        )
-
-        location_percentage = round(
-            (top_location_count / total_visitors) * 100
-        )
-
-        device_percentage = round(
-            (main_device_count / total_visitors) * 100
-        )
-
-    else:
-
-        new_percentage = 0
-        returning_percentage = 0
-        location_percentage = 0
-        device_percentage = 0
-
-
-    # --------------------------
-    # SEND DATA TO HTML
-    # --------------------------
 
     return render_template(
         "analytics.html",
@@ -758,23 +718,19 @@ def analytics():
         total_blogs=total_blogs,
         ai_blogs=ai_blogs,
         categories=categories,
-        category_data=category_data,
 
         total_views=total_views,
-        best_blog=best_blog,
+        top_blog=top_blog,
+        best_blogs=best_blogs,
 
-        total_visitors=total_visitors,
+        total_audience=total_audience,
         new_visitors=new_visitors,
         returning_visitors=returning_visitors,
 
-        new_percentage=new_percentage,
-        returning_percentage=returning_percentage,
-
         top_location=top_location,
-        location_percentage=location_percentage,
-
         main_device=main_device,
-        device_percentage=device_percentage
+
+        category_data=category_data
     )
 
 # ==========================
